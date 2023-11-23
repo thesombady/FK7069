@@ -74,31 +74,84 @@
 \begin{document}
 
 \maketitle
-\section{Bi-harmonic equation}
+\section{Biharmonic equation}
 Consider the Navier-Cauchy equation in the absence of anybody forces - the only forces are at boundaries
 \begin{align*}
-    (1-2\sigma)\laplace\mathbf{u} + \nabla\nabla\cdot u = 0
+    (1-2\sigma)\laplace\mathbf{u} + \nabla\left(\nabla\cdot \mathbf{u}\right) = 0,
 \end{align*}where $\mathbf{u}$ is the deformation field. Show that $\mathbf{u}$ satisfies the bi-harmonic equation
 \begin{align*}
     \nabla^4\mathbf{u} = 0,
 \end{align*}even if there is a constant gravitational force acting on the body. It is useful to remember that although
-$\mathbf{u}$ may satisfy a bi-harmonic equation any solution of the bi-harmonic equation is not a solution of the Navier–Cauchy equation.
-Now show that if $\mathbf{v}$ is a solution of the b-harmonic equation then a general solution for the Navier–Cauchy equation (without volume force) can be written as
+$\mathbf{u}$ may satisfy a biharmonic equation any solution of the biharmonic equation is not a solution of the Navier-Cauchy equation.
+Now show that if $\mathbf{v}$ is a solution of the biharmonic equation then a general solution for the Navier-Cauchy equation (without volume force) can be written as
 \begin{align*}
-    \mathbf{u} = \laplace\mathbf{v} -\frac{1}{2(1-\sigma)}\nabla\nabla\cdot\mathbf{u}.
+    \mathbf{u} = \laplace\mathbf{v} -\frac{1}{2(1-\sigma)}\nabla\left(\nabla\cdot\mathbf{u}\right).
 \end{align*}
 \subsection*{\textit{Hint}}
 Assume $\mathbf{u}$ is on the form
 \begin{align*}
-    \mathbf{u} = \laplace\mathbf{v}+ A\nabla\nabla\cdot\mathbf{v},
-\end{align*}where $\mathbf{v}$ solves the bi-harmonic equation. Then substitute this $\mathbf{u}$ into the Navier–Cauchy equation (without volume force) to find A.
+    \mathbf{u} = \laplace\mathbf{v}+ A\nabla\left(\nabla\cdot\mathbf{v}\right),
+\end{align*}where $\mathbf{v}$ solves the bi-harmonic equation. Then substitute this $\mathbf{u}$ into the Navier-Cauchy equation (without volume force) to find A.
 \subsection*{Answer}
+We first show that $\mathbf{u}$ satisfies the bi-harmonic equation. We start by taking the divergence of the Navier-Cauchy equation:
+\begin{align*}
+    0 &= \nabla\cdot\left((1-2\sigma)\laplace\mathbf{u} + \nabla\left[\nabla\cdot \mathbf{u}\right]\right)\\
+    &= (1-2\sigma)\laplace\left[\nabla\cdot\mathbf{u}\right] + \nabla\cdot\left(\nabla\left[\nabla\cdot \mathbf{u}\right]\right)\\
+    &= (1-2\sigma)\laplace\left[\nabla\cdot\mathbf{u}\right] + \nabla\cdot\left(\laplace\mathbf{u}\right)\\
+    \implies& \laplace\left[\nabla\cdot\mathbf{u}\right] = 0.
+\end{align*}Taking the Laplacian operator of the Navier-Cauchy equations yeilds:
+\begin{align*}
+    0 &= \laplace\left[(1-2\sigma)\laplace\mathbf{u} + \nabla\left(\nabla\cdot \mathbf{u}\right)\right]\\
+    &= (1-2\sigma)\laplace\laplace\mathbf{u} + \laplace\left[\nabla\left(\nabla\cdot \mathbf{u}\right)\right]\\
+    &= (1-2\sigma)\nabla\cdot\laplace\left[\nabla\cdot\mathbf{u}\right] + \nabla\left(\laplace\left[\nabla\cdot \mathbf{u}\right]\right)\\
+    &= \nabla^4\mathbf{u}
+\end{align*} In the case of a constant gravitational field, then we take the divergence of a constant vector field $\tilde{\mathbf{g}}$, which is zero. Thus, the biharmonic equation still holds for a constant gravitational field.
+One can expand that statement and say that it holds for all vector-fields of which the divergence is zero.
+Now suppose that $\mathbf{u}$ can be written as in the hint, using that $\mathbf{v}$ is a solution of the biharmonic equation, we rewrite the Navier-Cauchy equation:
+\begin{align*}
+    (1-2\sigma)\laplace{\mathbf{u}} &=- \nabla\left[\nabla\cdot\mathbf{u}\right]\\
+    &= -\nabla\left(\nabla\cdot\left[\laplace{\mathbf{v}} + A\nabla\left(\nabla\cdot\mathbf{v}\right)\right]\right)\\
+    &= -\left(\nabla^4\mathbf{v} + \nabla\cdot A\nabla(\nabla\cdot\mathbf{v})\right)\\
+    &= -\nabla\cdot A\nabla(\nabla\cdot\mathbf{v}) = -A\left(\nabla\cdot\laplace\mathbf{v}\right)\\
+    \implies \laplace{\mathbf{u}} &= -\frac{A}{1-2\sigma}\left(\nabla\cdot\laplace\mathbf{v}\right)
+\end{align*}Using this result, one obtains the following:
+\begin{align*}
+    \mathbf{u} &= \laplace\mathbf{v} - \frac{1}{2(1-\sigma)}\nabla\left(\nabla\cdot\mathbf{u}\right).
+\end{align*}
 
 \section*{Question 2}
 What is the equation of deformation of a small volume in a homogeneous and isotropic material in three dimensions?
 
 \subsection*{Answer}
-
+For an isotropic material and homogeneous material, the stress is given by:
+\begin{align*}
+    \sigma_{\alpha,\beta} = \frac{Y}{1+\sigma_p}\left(s_{\alpha,\beta} + \frac{\sigma_p}{1-2\sigma_p}s_{\kappa, \kappa}\delta_{\alpha,\beta}\right),
+\end{align*}where $Y$ is the Young's modulus, $\sigma_p$ is the Poisson's ratio, $s_{\alpha,\beta}$ is the strain tensor, and $\delta_{\alpha,\beta}$ is the Kronecker delta.
+Rewriting the stress-tensor in terms of the deformation field, we get:
+\begin{align*}
+    \sigma_{\alpha,\beta} &= \frac{Y}{1+\sigma_p}\left(\frac{1}{2}\left(\frac{\partial u_\alpha}{\partial x_\beta} + \frac{\partial u_\beta}{\partial x_\alpha}\right) + \frac{\sigma_p}{1-2\sigma_p}\left(\frac{\partial u_\kappa}{\partial x_\kappa}\right)\delta_{\alpha,\beta}\right)\\
+    \sigma &= \frac{Y}{1 + 2\sigma_p}\left(\frac{1}{2}\left[\nabla(u) + \nabla(u)^T\right] + \frac{\sigma_p}{1-2\sigma_p}\text{tr}(\nabla u)\right)
+\end{align*} In the absence of body forces, the equation of motion is given by:
+\begin{align*}
+    0 &= \nabla\cdot \sigma\\
+    &= \frac{Y}{1 + 2\sigma_p}\nabla\cdot\left(\frac{1}{2}\left[\nabla(u) + \nabla(u)^T\right] + \frac{\sigma_p}{1-2\sigma_p}\text{tr}(\nabla u)\right)
+\end{align*}
+\begin{comment}
+We can now write the equation of deformation of a small volume in a homogeneous and isotropic material in three dimensions:
+\begin{align*}
+    \frac{\partial \sigma_{\alpha,\beta}}{\partial x_\beta} &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{\partial}{\partial x_\beta}\left(\frac{Y}{1+\sigma}\left(\frac{1}{2}\left(\frac{\partial u_\alpha}{\partial x_\beta} + \frac{\partial u_\beta}{\partial x_\alpha}\right) + \frac{\sigma}{1-2\sigma}\left(\frac{\partial u_\kappa}{\partial x_\kappa}\right)\delta_{\alpha,\beta}\right)\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{1+\sigma}\left(\frac{1}{2}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right) + \frac{\sigma}{1-2\sigma}\left(\frac{\partial^2 u_\kappa}{\partial x_\kappa\partial x_\beta}\right)\delta_{\alpha,\beta}\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{1+\sigma}\left(\frac{1}{2}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right) + \frac{\sigma}{1-2\sigma}\left(\frac{\partial^2 u_\kappa}{\partial x_\kappa\partial x_\beta}\right)\delta_{\alpha,\beta}\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{1+\sigma}\left(\frac{1}{2}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right) +
+    \frac{\sigma}{1-2\sigma}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right)\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{1+\sigma}\left(\frac{1+\sigma}{2(1-2\sigma)}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right)\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{1+\sigma}\left(\frac{1+\sigma}{2(1-2\sigma)}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right)\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{2(1-2\sigma)}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{2(1-2\sigma)}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{Y}{2(1-2\sigma)}\left(\frac{\partial^2 u_\alpha}{\partial x_\beta^2} + \frac{\partial^2 u_\beta}{\partial x_\alpha\partial x_\beta}\right) &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+\end{align*}This is the equation of deformation of a small volume in a homogeneous and isotropic material in three dimensions.
+\end{comment}
 \section*{Question 3}
 Now consider the kind of deformation where $u_z = 0$ everywhere in a three-dimensional body (that is homogeneous and isotropic with elastic coefficients $Y$ and $\sigma$) and $u_x$ and $u_y$ are functions of $x$ and $y$ alone (not functions of $z$). Note that the dimension on the body along the z direction remains constant. Hence, although $u_z = 0$ everywhere, $\sigma_{z,z}$ is not zero.
 \subsection*{a)}

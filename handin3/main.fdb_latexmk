@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1700478356 "/Users/andreas/Desktop/school/fk7069/handin3/main.tex" "main.pdf" "main" 1700478357 0
-  "/Users/andreas/Desktop/school/fk7069/handin3/main.tex" 1700478356 5781 b275be9db77c5ce0ef44a2f450ea8c52 ""
+["pdflatex"] 1700742166 "/Users/andreas/Desktop/school/fk7069/handin3/main.tex" "main.pdf" "main" 1700742166 0
+  "/Users/andreas/Desktop/school/fk7069/handin3/main.tex" 1700742165 12232 b62d22c9156f9d2aebbee3bd6d3e8e3c ""
   "/opt/homebrew/Cellar/texlive/20230313_2/share/texmf-dist/fonts/map/fontname/texfonts.map" 1678549815 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/opt/homebrew/Cellar/texlive/20230313_2/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1678549815 4609045 74543da1ab9350ba886fce0af49a2cfd ""
   "/opt/homebrew/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1678549815 1004 54797486969f23fa377b128694d548df ""
@@ -239,9 +239,9 @@
   "/opt/homebrew/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/zref/zref-base.sty" 1678549815 20785 71a3d72ab517959a6979c27e6176bec1 ""
   "/opt/homebrew/Cellar/texlive/20230313_2/share/texmf-dist/web2c/texmf.cnf" 1678549815 40748 4081c8bc921e56c865f975bd762e388c ""
   "/opt/homebrew/Cellar/texlive/20230313_2/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1678549815 7884066 8197b5e86c7bf6d7352283907f10d5c2 ""
-  "main.aux" 1700478357 786 e408d339a871bb5b3e4ae2554b436406 "pdflatex"
-  "main.out" 1700478357 146 bab2899a41467cb16317c8414bd03635 "pdflatex"
-  "main.tex" 1700478356 5781 b275be9db77c5ce0ef44a2f450ea8c52 ""
+  "main.aux" 1700742166 785 e9d013be427f8ba08e2d6a931b762b42 "pdflatex"
+  "main.out" 1700742166 141 3db144d4aec127ca4b2e0ace521c89a5 "pdflatex"
+  "main.tex" 1700742165 12232 b62d22c9156f9d2aebbee3bd6d3e8e3c ""
   (generated)
   "main.aux"
   "main.log"
