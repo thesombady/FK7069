@@ -41,6 +41,7 @@
 \newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
 \newcommand{\res}[2]{\text{Res}(#1,#2)}
 \newcommand{\laplace}{\nabla^2}
+\newcommand{\trace}{\text{Tr}}
 
 \title{Handin3}
 \author{Author : Andreas Evensen}
@@ -103,7 +104,7 @@ We first show that $\mathbf{u}$ satisfies the bi-harmonic equation. We start by 
 \begin{align*}
     0 &= \laplace\left[(1-2\sigma)\laplace\mathbf{u} + \nabla\left(\nabla\cdot \mathbf{u}\right)\right]\\
     &= (1-2\sigma)\laplace\laplace\mathbf{u} + \laplace\left[\nabla\left(\nabla\cdot \mathbf{u}\right)\right]\\
-    &= (1-2\sigma)\nabla\cdot\laplace\left[\nabla\cdot\mathbf{u}\right] + \nabla\left(\laplace\left[\nabla\cdot \mathbf{u}\right]\right)\\
+    &= (1-2\sigma)\nabla\cdot\laplace\left[\nabla\cdot\mathbf{u}\right] + \left(\nabla^4\left[\mathbf{u}\right]\right)\\
     &= \nabla^4\mathbf{u}
 \end{align*} In the case of a constant gravitational field, then we take the divergence of a constant vector field $\tilde{\mathbf{g}}$, which is zero. Thus, the biharmonic equation still holds for a constant gravitational field.
 One can expand that statement and say that it holds for all vector-fields of which the divergence is zero.
@@ -115,6 +116,7 @@ Now suppose that $\mathbf{u}$ can be written as in the hint, using that $\mathbf
     &= -\nabla\cdot A\nabla(\nabla\cdot\mathbf{v}) = -A\left(\nabla\cdot\laplace\mathbf{v}\right)\\
     \implies \laplace{\mathbf{u}} &= -\frac{A}{1-2\sigma}\left(\nabla\cdot\laplace\mathbf{v}\right)
 \end{align*}Using this result, one obtains the following:
+
 \begin{align*}
     \mathbf{u} &= \laplace\mathbf{v} - \frac{1}{2(1-\sigma)}\nabla\left(\nabla\cdot\mathbf{u}\right).
 \end{align*}
@@ -158,6 +160,13 @@ Now consider the kind of deformation where $u_z = 0$ everywhere in a three-dimen
 What is the equations of equilibrium involving the stresses $\sigma_{i,j}$ where $i,j$ are $x$ and $y$.
 
 \subsubsection*{Answer}
+The equations of equilibrium are given by:
+\begin{align*}
+    \frac{\partial \sigma_{\alpha,\beta}}{\partial x_\beta} &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
+    \implies \frac{\partial \sigma_{x,x}}{\partial x} + \frac{\partial \sigma_{x,y}}{\partial y} &= \rho\frac{\partial^2 u_x}{\partial t^2}\\
+    \implies \frac{\partial \sigma_{x,y}}{\partial x} + \frac{\partial \sigma_{y,y}}{\partial y} &= \rho\frac{\partial^2 u_y}{\partial t^2}\\
+\end{align*}
+
 
 \subsection*{b)}
 Show that for a scalar function $\psi(x,y)$ the equations of equilibrium are satisfied by the following choice
@@ -175,6 +184,12 @@ Find out what kind of partial differential equation $\psi$ obeys. \textit{Hint:}
 \end{align*}Take trace on both sides. The function $\psi$ is known as the Airy stress function.
 
 \subsubsection*{Answer}
+Using the hint, one gets the following:
+\begin{align*}
+    \trace\left(\sigma_{\alpha, \beta}\right) &= \frac{Y}{1+\sigma}\trace\left(s_{\alpha,\beta} + \frac{\sigma}{1-2\sigma}s_{\kappa, \kappa}\delta_{\alpha,\beta}\right)\\
+    \sigma_{x,x} + \sigma_{y,y} + \sigma_{z,z} &= \frac{Y}{1+\sigma}\left(\trace(S) + \frac{\sigma}{1-2\sigma}\trace(S)\right)\\
+    &=\frac{Y}{1+\sigma}\left(s_{x,x} + s_{y,y} + s_{z,z} + \frac{\sigma}{1-2\sigma}\left[s_{x,x} + s_{y,y} + s_{z,z}\right]\right)
+\end{align*}
 
 
 
