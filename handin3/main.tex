@@ -234,7 +234,11 @@ In order to find the contact time, one needs to generalize the concepts used ear
 \end{align*}We approximate the hard surface as a sphere of infinite radius and thus the effective radius becomes $\frac{1}{r} = \frac{1}{R}$.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale = 1.2]
+    \begin{tikzpicture}[scale = 0.5]
+        \draw (0,5) circle (1);
+        \draw[->] (3,5) -- (3, 0) node[right, pos = 0.5] {$h$};
+        \draw[dashed] (0,0) -- (3,0);
+        \draw[dashed] (0,5) -- (3,5);
         \draw (-2,0) -- (2, 0);
         \draw[dashed] (0,0) circle (1);
         \draw (1,0) arc (0:180:1);
@@ -242,7 +246,27 @@ In order to find the contact time, one needs to generalize the concepts used ear
     \end{tikzpicture}
     \caption{Illustration of the sphere falling on the surface.}
     \label{fig: task4}
-\end{figure}
+\end{figure}\noindent
+Using the crude figure from above, expression for the height $d$:
+\begin{align*}
+    d = \frac{F}{\pi aY},
+\end{align*}where $z$ is the depth of the indentation, $a$ is the contact area of the sphere and the sheet, and $F$ is the force exerted on the sphere/plane. The force exerted on the sphere is given by:
+\begin{align*}
+    F = mg
+\end{align*}and the contact area is given by:
+\begin{align*}
+    a = \left(\frac{rF}{\pi Y}\right)^{1/3}.
+\end{align*}
+The system follows the following ordinary differential equation:
+\begin{align*}
+    \frac{\partial d}{\partial t} &= \sqrt{2gh}\\
+    \partial t&=\frac{\partial d}{\sqrt{2gh}}\\
+    \implies t &= \int_0^d\frac{1}{\sqrt{2gh}}dd'\\
+    &= \frac{d}{\sqrt{2gh}} = \frac{\frac{mg}{\pi aY}}{\sqrt{2gh}}\\
+\end{align*}This is only the time it takes for the deformation to stop, but the contact-time is also the time it takes for the sphere to lose contact with the surface, hence the actual time is given by:
+\begin{align*}
+    t = \frac{2mg}{\pi ay\sqrt{2gh}}.
+\end{align*}
 
 \section*{Problem for extra credit}
 A cylinder made of isotropic material with Young's modulus $Y$ and Poisson's ratio $\sigma$ is resting on a flat surface. Ignore the deformations of the surface.
