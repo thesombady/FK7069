@@ -77,9 +77,9 @@
 \maketitle
 \section{Biharmonic equation}
 Consider the Navier-Cauchy equation in the absence of anybody forces - the only forces are at boundaries
-\begin{align*}
-    (1-2\sigma)\laplace\mathbf{u} + \nabla\left(\nabla\cdot \mathbf{u}\right) = 0,
-\end{align*}where $\mathbf{u}$ is the deformation field. Show that $\mathbf{u}$ satisfies the bi-harmonic equation
+\begin{align}
+    (1-2\sigma)\laplace\mathbf{u} + \nabla\left(\nabla\cdot \mathbf{u}\right) = 0,\label{eq:navier-cauchy}
+\end{align}where $\mathbf{u}$ is the deformation field. Show that $\mathbf{u}$ satisfies the bi-harmonic equation
 \begin{align*}
     \nabla^4\mathbf{u} = 0,
 \end{align*}even if there is a constant gravitational force acting on the body. It is useful to remember that although
@@ -100,7 +100,7 @@ We first show that $\mathbf{u}$ satisfies the bi-harmonic equation. We start by 
     &= (1-2\sigma)\laplace\left[\nabla\cdot\mathbf{u}\right] + \nabla\cdot\left(\nabla\left[\nabla\cdot \mathbf{u}\right]\right)\\
     &= (1-2\sigma)\laplace\left[\nabla\cdot\mathbf{u}\right] + \nabla\cdot\left(\laplace\mathbf{u}\right)\\
     \implies& \laplace\left[\nabla\cdot\mathbf{u}\right] = 0.
-\end{align*}Taking the Laplacian operator of the Navier-Cauchy equations yeilds:
+\end{align*}Taking the Laplacian operator of the Navier-Cauchy equations yields:
 \begin{align*}
     0 &= \laplace\left[(1-2\sigma)\laplace\mathbf{u} + \nabla\left(\nabla\cdot \mathbf{u}\right)\right]\\
     &= (1-2\sigma)\laplace\laplace\mathbf{u} + \laplace\left[\nabla\left(\nabla\cdot \mathbf{u}\right)\right]\\
@@ -155,28 +155,51 @@ We can now write the equation of deformation of a small volume in a homogeneous 
 \end{align*}This is the equation of deformation of a small volume in a homogeneous and isotropic material in three dimensions.
 \end{comment}
 \section*{Question 3}
-Now consider the kind of deformation where $u_z = 0$ everywhere in a three-dimensional body (that is homogeneous and isotropic with elastic coefficients $Y$ and $\sigma$) and $u_x$ and $u_y$ are functions of $x$ and $y$ alone (not functions of $z$). Note that the dimension on the body along the z direction remains constant. Hence, although $u_z = 0$ everywhere, $\sigma_{z,z}$ is not zero.
+Now consider the kind of deformation where $u_z = 0$ everywhere in a three-dimensional body (that is homogeneous and isotropic with elastic coefficients $Y$ and $\sigma_p$) and $u_x$ and $u_y$ are functions of $x$ and $y$ alone (not functions of $z$).
+Note that the dimension on the body along the z direction remains constant. Hence, although $u_z = 0$ everywhere, $\sigma_{z,z}$ is not zero.
 \subsection*{a)}
 What is the equations of equilibrium involving the stresses $\sigma_{i,j}$ where $i,j$ are $x$ and $y$.
 
 \subsubsection*{Answer}
-The equations of equilibrium are given by:
+In order to find the equilibrium equations involving the stresses $\sigma_{i,j}$, we need to find the stresses $\sigma_{i,j}$.
 \begin{align*}
-    \frac{\partial \sigma_{\alpha,\beta}}{\partial x_\beta} &= \rho\frac{\partial^2 u_\alpha}{\partial t^2}\\
-    \implies \frac{\partial \sigma_{x,x}}{\partial x} + \frac{\partial \sigma_{x,y}}{\partial y} &= \rho\frac{\partial^2 u_x}{\partial t^2}\\
-    \implies \frac{\partial \sigma_{x,y}}{\partial x} + \frac{\partial \sigma_{y,y}}{\partial y} &= \rho\frac{\partial^2 u_y}{\partial t^2}\\
+    \sigma_{x,x} &= \frac{Y}{1+\sigma_p}\left(s_{x,x} + \frac{\sigma_p}{1-2\sigma_p}s_{\kappa, \kappa}\delta_{x,x}\right)\\
+    \sigma_{x,y} &= \frac{Y}{1+\sigma_p}\left(s_{x,y} + \frac{\sigma_p}{1-2\sigma_p}s_{\kappa, \kappa}\delta_{x,y}\right)\\
+    &= \frac{Y}{1+\sigma_p}\left(s_{x,y}\right)\\
+    \sigma_{y,x} &= \frac{Y}{1+\sigma_p}\left(s_{y,x} + \frac{\sigma}{1-2\sigma}s_{\kappa, \kappa}\delta_{y,x}\right)\\
+    &= \frac{Y}{1+\sigma_p}\left(s_{y,x}\right)\\
+    \sigma_{y,y} &= \frac{Y}{1+\sigma_p}\left(s_{y,y} + \frac{\sigma_p}{1-2\sigma_p}s_{\kappa, \kappa}\delta_{y,y}\right)
 \end{align*}
-
+Balancing the directions, without any body-forces:
+\begin{align*}
+    \text{$\hat{x}$: } \frac{\partial \sigma_{x,x}}{\partial x} + \frac{\partial \sigma_{x,y}}{\partial y} = 0\\
+    \text{$\hat{y}$: } \frac{\partial \sigma_{y,y}}{\partial y} + \frac{\partial \sigma_{y,x}}{\partial x} = 0\\
+\end{align*}
 
 \subsection*{b)}
 Show that for a scalar function $\psi(x,y)$ the equations of equilibrium are satisfied by the following choice
-\begin{align}
+\begin{align*}
     \sigma_{x,x} = \frac{\partial^2\psi(x,y)}{\partial y^2}\\
     \sigma_{x,y} = -\frac{\partial^2\psi(x,y)}{\partial y\partial x}\\
-    \sigma_{y,y} = \frac{\partial^2\psi(x,y)}{\partial x^2}\\
-\end{align}
+    \sigma_{y,y} = \frac{\partial^2\psi(x,y)}{\partial x^2}
+\end{align*}
 
 \subsubsection*{Answer}
+Firstly, since $\sigma_{i,j}$ can be expressed in terms of $u$, one can write the sum:
+\begin{align*}
+    \sigma_{x,x} + \sigma_{y,y} &= \underbrace{\frac{Y(1-2\sigma_p)}{1+\sigma_p}}_{P}\left(\frac{\partial u_x}{\partial x} + \frac{\partial u_y}{\partial y}\right)
+\end{align*}This is divergence of the deformation field, which in itself is only a function of $x$ and $y$. We call that function $\psi(x,y) = \nabla\cdot\mathbf{u}$.
+Taking the square derivatives of $\psi(x,y)$, one gets the following:
+\begin{align*}
+    \frac{\partial^2\psi(x,y)}{\partial x^2} &= P\frac{\partial^2}{\partial x^2}\left(\frac{\partial u_x}{\partial x} + \frac{\partial u_y}{\partial y}\right)\\
+    &= \sigma_{y,y}\\
+    \frac{\partial^2\psi(x,y)}{\partial y^2} &= P\frac{\partial^2}{\partial y^2}\left(\frac{\partial u_x}{\partial x} + \frac{\partial u_y}{\partial y}\right)\\
+    &= \sigma_{x,x}\\
+    \frac{\partial^2\psi(x,y)}{\partial y\partial x} &= P\frac{\partial^2}{\partial y\partial x}\left(\frac{\partial u_x}{\partial x} + \frac{\partial u_y}{\partial y}\right)\\
+    &= \sigma_{x,y}
+\end{align*}
+
+
 \subsection*{c)}
 Find out what kind of partial differential equation $\psi$ obeys. \textit{Hint:} Write the stress in terms of strains
 \begin{align*}
@@ -199,6 +222,27 @@ A sphere made of isotropic material with Young's modulus $Y$ and Poisson's ratio
 The gravitational acceleration $g$ is constant. The surface is very hard compared to the sphere such that you can ignore any deformation of the surface. Estimate the amount of time the sphere stays in contact with the surface.
 
 \subsection*{Answer}
+In order to find the contact time, one needs to generalize the concepts used earlier. One states that the potential energy of the sphere is given by:
+\begin{align*}
+    E_p = mgh,
+\end{align*}and the kinetic energy is given by:
+\begin{align*}
+    E_k = \frac{1}{2}mv^2.
+\end{align*}At point of contact, the potential energy is zero and of the energy is kinetic energy. The velocity at that point is given by:
+\begin{align*}
+    v = \sqrt{2gh}.
+\end{align*}We approximate the hard surface as a sphere of infinite radius and thus the effective radius becomes $\frac{1}{r} = \frac{1}{R}$.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 1.2]
+        \draw (-2,0) -- (2, 0);
+        \draw[dashed] (0,0) circle (1);
+        \draw (1,0) arc (0:180:1);
+        \draw[<->] (0,0) -- (0,-1) node[right, pos = 0.5] {$d$};
+    \end{tikzpicture}
+    \caption{Illustration of the sphere falling on the surface.}
+    \label{fig: task4}
+\end{figure}
 
 \section*{Problem for extra credit}
 A cylinder made of isotropic material with Young's modulus $Y$ and Poisson's ratio $\sigma$ is resting on a flat surface. Ignore the deformations of the surface.
