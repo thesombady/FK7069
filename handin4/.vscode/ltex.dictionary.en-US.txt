@@ -17,3 +17,11 @@ showspaces
 showstringspaces
 showtabs
 tabsize
+Lett
+Bonard
+Salvetat
+GADBriggs
+Bacsa
+Kulik
+mircometer
+Unilamellar
