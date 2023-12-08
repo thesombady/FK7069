@@ -107,19 +107,39 @@ Using the principle of virtual work (or any other-way) obtain the force-distance
         \draw (6,5 - 1) -- (8, 2 - 1) -- (10, 5 - 1);
         \draw (9.5, 0.55) arc (60:90+30:3);
         \draw (8.35, 1.5) arc (40:140:0.45) node[pos = 0.5, above] {$\alpha$};
+        \draw[dashed] (8, 1) -- (8, 3) node[left, pos = 0.9] {$d$};
+        \draw[dashed] (8,3) -- (9.35, 3) node[pos = 0.5, above] {$\frac{a}{2}$};
+        \draw[red] (8,1) -- (9.35, 3) node[pos = 0.5, right] {$R$};
     \end{tikzpicture}
     \caption*{System layout}
 \end{figure}\noindent
 In the case, the bending of the vesicle is negligible, and thus we only consider two cases of deformation, namely stretching and area change. Since the bending is negligible, so is its contribution to the free energy.
-Furthermore, since the stretching is dependent on the sheer-modulus $\mu$ so is its contribution to the free energy. Thus, we only consider the area change and the force pushing the vesicle down.
+Furthermore, since the stretching is dependent on the sheer-modulus $\mu$ so is its contribution to the free energy. Thus, we only consider the area change and the force pushing the vesicle down. And thus the total free energy is given by:
 \begin{align*}
-    \F &= \underbrace{\F_{bend} + \F_{stretch}}_{=0} + \F_{area} + F_{push}\\
-    &= \F_{area} + \F_{push}
-\end{align*}One minimizes the free energy, and get the following:
-\begin{align*}
-    0 &= \frac{\partial \F}{\partial \theta}\\
-    &=
+    \F &= \F_{stretch} + F\cdot d\\
+    &= \int_A \frac{K_A}{2}s^{2}_{\alpha, \alpha}dA - F\cdot d\\
+    &= \int_A \frac{K_A}{2}4\left(\frac{w}{R}\right)^2dA - F\cdot d\\
+    &= \frac{K_A}{2}4\left(\frac{w}{R}\right)^2a^2- F\cdot d\\
 \end{align*}
+The displacement distance $d$ can be expressed in terms of the area-displacement element $a$ and the angle $\alpha$ which leads to the following:
+\begin{align*}
+    \F = 2K_A \left(\frac{w}{R}\right)^2a^2 - \frac{F\cdot a}{2\tan{\left(\frac{\alpha}{2}\right)}}.
+\end{align*}Minimizing the free energy, as when the system is in equilibrium and approximating $w \approx d$ and using the above substitution, one finds the following:
+\begin{align*}
+    0 &=\frac{\partial \F}{\partial a}\\
+    &\approx \frac{\partial}{\partial a}\left(2K_A\frac{a^4}{R^24\tan^2{\left(\frac{\alpha}{2}\right)}} - \frac{F\cdot a}{2\tan{\left(\frac{\alpha}{2}\right)}}\right)\\
+    &= 8K_A\frac{a^3}{R^24\tan^2{\left(\frac{\alpha}{2}\right)}} - \frac{F}{2\tan{\left(\frac{\alpha}{2}\right)}}\\
+    \implies a &= \sqrt[3]{\frac{FR^2\tan{\left(\frac{\alpha}{2}\right)}}{4K_A}}.
+\end{align*}Using the above result we now minimize the free energy with respect to the distance displacement $d$, and substitute $a$ with what one obtained above:
+\begin{align*}
+    0 &= \frac{\partial \F}{\partial d}\\
+    &= \frac{\partial}{\partial d}\left[2K_A\left(\frac{d}{R}\right)^2\cdot \left(\sqrt[3]{\frac{FR^2\tan{\left(\frac{\alpha}{2}\right)}}{4K_A}}\right)^2 - F\cdot d\right]\\
+    &= 4K_A\frac{d}{R^2}\sqrt[3]{\frac{FR^2\tan{\left(\frac{\alpha}{2}\right)}}{4K_A}} - F\\
+    \implies d &=  \frac{FR^2}{4K_A\sqrt[3]{\frac{FR^2\tan{\left(\frac{\alpha}{2}\right)}}{4K_A}}}
+\end{align*}The force-distance relationship is thus $d \propto F^{\frac{2}{3}}$.
+
+
+
 
 \section*{Exercise 2, A tether pulling experiment}
 Large (mircometer) sized vesicles made of bi-lipid layers are called GUV's -- Giant Unilamellar Vesicles. If a bead is brought close to it, the membrane gets attached to it.
@@ -156,24 +176,48 @@ The free energy of the system is given by:
 \end{align*}
 \end{comment}
 \begin{align*}
-    \mathcal{F}_{sphere} &= B\cdot\oint_{Sphere} \left(\frac{1}{R} \right)^2dx_1dx_2\\
-    %&= \frac{4\pi B}{2}\left(\frac{1}{R}\right)^2,\\
+    \mathcal{F}_{sphere} &= \frac{B}{2}\cdot\oint_{Sphere} \left(\frac{2}{R} \right)^2dx_1dx_2\\
+    &= 2B\int_0^{\pi} d\theta\sin(\theta) \int_0^{2\pi} d\phi = 8B\pi\\
     \mathcal{F}_{cylinder} &= B\cdot\oint_{cylinder} \left(\frac{1}{r}\right)^2dx_1dx_2\\
-    %&=\frac{2\pi B}{L}\left(\frac{1}{r}\right)^2,\\
+    &= 2B\int_0^Ldz \frac{r}{r^2}\int_0^{2\pi}d\phi = \frac{BL\pi}{r}\\
     \mathcal{F}_{cap} &= B\cdot\oint_{cap} \left(\frac{1}{2r}\right)^2dx_1dx_2\\
-    %&=\frac{2\pi B}{R}\left(\frac{1}{2r}\right)^2,\\
-    \implies \mathcal{F}_{bend} &= B\left(\oint_{sphere}\left(\frac{1}{R}\right)^2dx_1dx_2+\oint_{cylinder}\left(\frac{1}{r}\right)^2dx_1dx_2 + \oint_{cap}\left(\frac{1}{2r}\right)^2dx_1dx_2\right).
+    &= \frac{B}{2}\int_0^\pi d\theta \left(\frac{2}{r}\right)^2 \sin(\theta)\int_0^{2\pi}d\phi = 4B\pi\\
+    \implies \mathcal{F}_{bend} &= B\pi\left(12 + \frac{L}{r}\right)
 \end{align*}The stretching energy is given by:
 \begin{align*}
-    \mathcal{F}_{stretch} &= \frac{K_A}{2}\oint\left(\frac{L}{L_0} - 1\right)^2dA,
-\end{align*}The stretching energy is given by:
+    \mathcal{F}_{stretch} &= \frac{K_A}{2}\oint s_{\alpha,\alpha}^2dA\\
+    &\approx K_A \int \frac{\Delta A}{a}d\Delta A = \frac{K_A}{2}\left(\frac{(\Delta A)^2}{A}\right)\\
+    &= \frac{K_A}{2}\frac{(a-a_0)^2}{a_0}.
+\end{align*}Here one used the Areal-strain and substituted the strain element $s_{\alpha,\alpha}$ with the area change $\frac{\Delta A}{A}$. The total free energy is thus given by:
 \begin{align*}
-    \mathcal{F}_{pull} &= f\cdot L.
-\end{align*}We now have the total free energy of the system, and moreover we know that the system is in equilibrium when the free energy is a minimum; and we assume it is in all instances.
+    \mathcal{F} &= \mathcal{F}_{bend} + \mathcal{F}_{pull} + \mathcal{F}_{stretch}\\
+    &= B\pi\left(12 + \frac{L}{r}\right) - F\cdot L + \frac{K_A}{2}\frac{(a-a_0)^2}{a_0},
+\end{align*}where $F\cdot L$ is the force pulling the tether. The system is in equilibrium when the free energy is a minimum, and thus we have in the case of minimizing $\F$ with respect to $R$:
+\begin{align}
+    0 &= \frac{\partial \F}{\partial R}\nonumber\\
+    &= \frac{\partial }{\partial R}\left[\frac{K_A}{2}\frac{\left(4\pi R^2 + 2\pi rL - a_0\right)^2}{a_0}\right]\nonumber\\
+    &= 8\pi K R\left(\frac{a - a_0}{a_0}\right) = 8\pi R\tau;\quad \tau = K_A \cdot\frac{a - a_0}{a_0}
+\end{align}Minimizing with respect to $L$ gives instead:
+\begin{align}
+    0 &= \frac{\partial \F}{\partial L}\nonumber\\
+    &= \frac{\partial }{\partial L}\left[B\pi\left(12 + \frac{L}{r}\right) +\frac{K_A}{2}\frac{\left(4\pi R^2 + 2\pi rL - a_0\right)^2}{a_0} - F\cdot L \right]\nonumber\\
+    &= \frac{B\pi}{r} + 2\pi r \tau - F.\label{eq: task 2 final}
+\end{align}Minimizing with respect to $r$ gives the following:
+\begin{align}
+    0 &= \frac{\partial \F}{\partial r}\nonumber\\
+    &= \frac{\partial}{\partial r}\left[B\pi\left(12 + \frac{L}{r}\right) + \frac{K_A}{2}\frac{\left(4\pi R^2 + 2\pi rL - a_0\right)^2}{a_0}\right]\nonumber\\
+    &= -\frac{B\pi L}{r^2} + 2\pi L\tau\label{eq: task 2 r}
+\end{align} Solving for $r$ in \eqref{eq: task 2 r} gives:
 \begin{align*}
-    \frac{d\mathcal{F}}{df} &= 0 \\
-    \implies& dF\cdot L + \frac{K_A}{2}\left(\frac{L}{L_0} - 1\right)^2 + B \left[\left(\frac{1}{R}\right)^2 + \left(\frac{1}{r}\right)^2 + \left(\frac{1}{2r}\right)^2\right] = 0.
-\end{align*}
+    r = \sqrt{\frac{B}{2\tau}}.
+\end{align*}Applying this result to \eqref{eq: task 2 final} gives the following:
+\begin{align*}
+    F &= \frac{B\pi}{r} + 2\pi r \tau\\
+    &= \frac{B\pi}{\sqrt{\frac{B}{2\tau}}} + 2\pi \sqrt{\frac{B}{2\tau}}\tau\\
+    &= \pi\sqrt{\frac{B^2\ 2\tau}{B}} +2\pi\sqrt{\frac{B\tau^2}{2\tau}} = \pi\sqrt{B2\tau} + \pi\sqrt{2B\tau}\\
+    &= 2\pi\sqrt{2B\tau}.
+\end{align*}Hence, the force $F$ is constant and independent of the length of the tether $L$. In these calculations, one has ignored the contribution for the change in area in the cap, which contributes to the free energy $\F$.
+The reason for this is that the cap is very small, since $r<<L,R$ and thus the contribution is negligible in the sense of that the order of magnitude is much smaller than the other contributions.
 
 
 \section*{Exercise 3}
