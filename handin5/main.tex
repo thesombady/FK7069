@@ -82,10 +82,35 @@
 
 \section*{Key takeaways from Video 'Low Reynolds number'.}
 While decreasing the Reynolds number, $Re$, the motion of the flow becomes less dependent on the inertia from the fluid.
-Therefore, the indication of $Re$ eliminates the inertial term compared to the viscous term. When the Reynolds number is small, the fluid can withstand both tensil and tangential stresses.
+Therefore, the indication of $Re$ eliminates the inertial term compared to the viscous term. When the Reynolds number is small, the fluid can withstand both tensile and tangential stresses.
 
 \vspace{0.7cm}\noindent
 In doing lubrication, we limit the contact area between two surfaces by a medium, such medium could be air, or a highly viscous fluid of which limits the contact area;
-there exist a flow between the two surfaces that allows 'slipping' and thus friction is reduced.
+there exist a flow between the two surfaces that allows 'slipping' and thus friction is reduced. This is valid for small Reynolds number, and this is called narrow channel. 
+This also implies laminar flow of the fluid between the two surfaces; smooth paths of the fluid particles in the flow.
+The Navier-Stokes equation is non-linear partial-differential equation, coupled with the continuity equation,
+\begin{align}
+    \partial_t\mathbf{v} + \left(\mathbf{v}\cdot\vec{\nabla}\right)\mathbf{v} &= - \frac{\vec{\nabla}p }{\varrho} - \vec{\nabla}\psi.\label{eq: Navier-Stokes}
+\end{align}In the cases of low Reynolds number, this equation simplifies to the Stokes equation,
+\begin{align}
+    \partial_t\mathbf{v} &= \nu\laplace\mathbf{v} - \vec{\nabla}p.\label{eq: Stokes}
+\end{align}
+In the case of low Reynolds number, and if within the flow the exists a non-rigid body, the Stokes equation becomes reversible, i.e. no direction of time.
+This implies that the direction of the flow is independent of the time, i.e. that the flow is time-independent.
+This however, can only occur when the action that causes the flow is reversible, such as the case when a fluid is driven by two plates moving in the opposite direction. 
+In the case of a rigid-body of which is flexible, the flow is not reversible, and the direction of the flow is dependent on the time, however the flow is still laminar.
+
+\vspace{0.7cm}\noindent
+\textbf{Sedimentation:} When a body is dropped into a fluid of low Reynolds number, the body will fall with a constant velocity, $v$, called the terminal velocity.
+The position of at which the body is dropped plays into a role of the terminal velocity, as the body will fall faster if it is falling far away from the boundaries of the fluid.
+This is due to flow being zero at the boundaries. Hence, if a layer of dust is placed at the top of a low Reynolds number fluid, the dust-particles with travel down the fluid and create a sediment in the bottom of the fluid.
+Moreover, the dust layer will together travel with a constant velocity, $v_{\text{sed}}$, but each individual particle will travel with a velocity such that the layer has a constant velocity.
+The velocity of the sediment is proportionally to the number of particles traveling, thus if there are a greater number of particles, the sediment will travel faster.
+
+\vspace{0.7cm}\noindent
+\textbf{Hele-Shaw:} Hele-Shaw apparatus is a narrow channel of which is filled with a low Reynolds number fluid, as the fluid flows through the channel. The apparatus allows for the study of the streamlines in the fluid.
+
+
+
 \end{document}
  
