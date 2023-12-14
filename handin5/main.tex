@@ -93,7 +93,7 @@ The Navier-Stokes equation is non-linear partial-differential equation, coupled 
     \partial_t\mathbf{v} + \left(\mathbf{v}\cdot\vec{\nabla}\right)\mathbf{v} &= - \frac{\vec{\nabla}p }{\varrho} - \vec{\nabla}\psi.\label{eq: Navier-Stokes}
 \end{align}In the cases of low Reynolds number, this equation simplifies to the Stokes equation,
 \begin{align}
-    \partial_t\mathbf{v} &= \nu\laplace\mathbf{v} - \vec{\nabla}p.\label{eq: Stokes}
+    \nabla^2\mathbf{v} = 0.\label{eq: Stokes}
 \end{align}
 In the case of low Reynolds number, and if within the flow the exists a non-rigid body, the Stokes equation becomes reversible, i.e. no direction of time.
 This implies that the direction of the flow is independent of the time, i.e. that the flow is time-independent.
