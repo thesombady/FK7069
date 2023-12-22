@@ -159,10 +159,117 @@ There exist different types of boundary conditions, Dirichlet-, Neumann-, and Ro
 \end{align*}At the different boundaries, the boundary conditions might be different, an example of this would be that a container is filled with a fluid, and that the fluid is being let out by a tap at the bottom.
 The boundary condition at the top would be a Dirichlet boundary stating that the inlet of fluid is constant, and the other boundary condition would be a Neumann- or Robin-boundary condition, stating that the fluid is being let out at a rate proportional to the height of the fluid being build up in the container.
 
-
-
+\vspace*{0.5cm}\noindent
+There exist a few common PDEs that are used in physics, the most common ones are: The Laplace equation, the Poisson equation, the diffusion equation, the wave equation, and the heat equation.
+\begin{align*}
+    \laplace \psi &= 0,\\
+    \laplace \psi &= f,\\
+    \fpartial{\psi}{t} &= D\laplace \psi,\\
+    \fpartial{\psi}{t} &= c^2\laplace \psi,\\
+    \fpartial{\psi}{t} &= D\laplace \psi + f.
+\end{align*}The Poisson equation is a generalization of the Laplace equation, and can be used in electrodynamics to describe the electric potential in a system. The solution for the Poisson equation is given by:
+\begin{align*}
+    \psi(\mathbf{r}) &= \frac{f}{\abs{\mathbf{r}}^2}.
+\end{align*}This is a result we will use extensively, since the majority of PDEs can't be solved, one will try to rewrite it into something that is familiar.
 
 \section{Soft Matter}\label{sec: Soft matter}
+Suppose that one has an object that is 'soft', this means that when an external force is applied, that the object will deform.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 1.2]
+        \draw (0,0) rectangle (4,3) node[right] {Object};
+        \draw[fill = red] (2, 1) circle (1pt) node[above] {$\mathbf{P}$};
+        \draw[fill = red] (2.5, 1.1) circle (1pt) node[above] {$\mathbf{P}'$};
+        %\draw[->] (0, 0) -- (2, 1) node[midway, above] {$\mathbf{u}(\mathbf{P})$};
+        \draw[->] (2, 1) -- (2.5, 1.1) node[right] {$\mathbf{u}(\mathbf{P}' - \mathbf{P})$};
+        %\draw[->] (0, 0) -- (2.5, 1.1) node[midway, below] {$\mathbf{u}(\mathbf{P}')$};
+    \end{tikzpicture}
+    \caption{The deformation of a soft object.}
+    \label{fig: soft object deformation derivation}
+\end{figure}\noindent
+The deformation field $u$ then describes how a point $\mathbf{P}$ moves under an external force $\mathbf{F}$. The deformation field $\mathbf{u}$ is only defined for small deformation, and by doing so it's a first order approximation of the actual deformation.
+Taking the gradient of such a deformation field, one finds a third rank tensor-field, \textit{a matrix}, which then is the following:
+\begin{align*}
+    \grad{\mathbf{u}} &= \begin{pmatrix}
+        \partial_x u_x & \partial_y u_x & \partial_z u_x\\
+        \partial_x u_y & \partial_y u_y & \partial_z u_y\\
+        \partial_x u_z & \partial_y u_z & \partial_z u_z\\
+    \end{pmatrix}.
+\end{align*}In two dimensions the dimension of the matrix is reduced from a $3\times 3$ to a $2\times 2$ matrix. Note that the gradient of $\mathbf{u}$ is actually the Jacobian of $\mathbf{u}$. If the deformation field $\mathbf{u}$ can be written as a gradient of a scalar field $\psi$, then the deformation field is conservative and the curl of the deformation field is zero.
+This third rank tensor can then be decomposed in a symmetric and antisymmetric part:
+\begin{align*}
+    \grad{\mathbf{u}} &= \underbrace{\begin{pmatrix}
+        \partial_x u_x &\frac{1}{2}\left(\partial_x u_y + \partial_y u_x\right) &\frac{1}{2}\left(\partial_xu_z + \partial_zu_x\right)\\
+        \frac{1}{2}\left(\partial_y u_x + \partial_x u_y\right) & \partial_y u_y & \frac{1}{2}\left(\partial_zu_y + \partial_yu_z\right)\\
+        \frac{1}{2}\left(\partial_zu_x + \partial_x u_z\right) & \frac{1}{2}\left(\partial_zu_y + \partial_yu_z\right) & \partial_z u_z\\        
+    \end{pmatrix}}_{\text{Strain matrix}} \\
+    &+ \underbrace{\begin{pmatrix}
+        0 & \frac{1}{2}\left(\partial_xu_y - \partial_yu_x\right) & \frac{1}{2}\left(\partial_xu_z - \partial_zux\right)\\
+        \frac{1}{2}\left(\partial_yu_x - \partial_xu_y\right) & 0 & \frac{1}{2}\left(\partial_yu_z - \partial_zu_y\right)\\
+        \frac{1}{2}\left(\partial_zu_x - \partial_xu_z\right) & \frac{1}{2}\left(\partial_zu_y - \partial_yu_z\right) & 0\\
+    \end{pmatrix}}_{\text{Rotation}}.
+\end{align*}The strain matrix $s$ is symmetric, and the rotation matrix is antisymmetric. Using Einstein notation, one can write the individual components of the strain matrix as follows:
+\begin{align*}
+    s_{ij} &= \frac{1}{2}\left(\partial_i u_j + \partial_j u_i\right),\\
+    s_{\alpha\beta} &= \frac{1}{2}\left(\partial_\alpha u_\beta + \partial_\beta u_\alpha\right).
+\end{align*}If a volume element, in some coordinates of a body is given by $dX_1dX_2dX_3$, then the deformed volume element is given by $dX_1'dX_2'dX_3'$.
+This can be expanded as $dX_1'dX_2'dX_3' = (1 + \lambda_1)dX_1(1 + \lambda_2)dX_2(1 + \lambda_3)dX_3$, where $\lambda_i$ is the eigenvalues of the strain matrix, where one has ignored the higher order terms.
+This in itself is only valid if the deformation is small, and thus the higher order terms are negligible. The elements of the strain matrix that lies of the main diagonal are the elements that gives rise to a rotation, not a rotation transformation.
+
+\vspace*{0.5cm}\noindent
+Suppose a deformation field $\mathbf{u}(x,y) = a\left(0\hat{x} + x\hat{y}\right) = a\cdot\begin{pmatrix}0\\x\end{pmatrix}$, then the gradient matrix is given by:
+\begin{align*}
+    \grad{\mathbf{u}} &= \begin{pmatrix}
+        \partial_x u_x & \partial_y u_x\\
+        \partial_x u_y & \partial_y u_y\\
+    \end{pmatrix} = a\cdot \begin{pmatrix}
+        0 & 0\\
+        1 & 0
+    \end{pmatrix}.
+\end{align*}The symmetric and antisymmetric parts are then given by:
+\begin{align*}
+    s &= \begin{pmatrix}
+        0& \frac{a}{2}\\
+        \frac{a}{2}&0
+    \end{pmatrix},\\
+    r &= \begin{pmatrix}
+        0& -\frac{a}{2}\\
+        \frac{a}{2}&0
+    \end{pmatrix}.
+\end{align*}The principal axis of the strain matrix is given by the eigenvectors of the strain matrix, and thus one finds the eigenvalues of the problem:
+\begin{align*}
+    \det\left(s - \lambda I\right) &= 0,\\
+    \begin{vmatrix}
+        -\lambda & \frac{a}{2}\\
+        \frac{a}{2} & -\lambda
+    \end{vmatrix} &= 0,\\
+    \lambda^2 - \frac{a^2}{4} &= 0,\\
+    \lambda &= \pm \frac{a}{2}.
+\end{align*}The eigenvectors are then given by:
+\begin{align*}
+   s\cdot\mathbf{x_1} &= \lambda_1\mathbf{x_1},\\
+   \implies x_1 &= \begin{pmatrix}
+       1\\
+       1
+    \end{pmatrix},\\
+    s\cdot\mathbf{x_2} &= \lambda_2\mathbf{x_2},\\
+    \implies x_2 &= \begin{pmatrix}
+        -1\\
+        1
+    \end{pmatrix}.
+\end{align*}Now suppose another scenario, a body is being deformed by a deformation field $\mathbf{u}$. Its volume changed from $V$ to $V'$. Prove that the volume change is given by:
+\begin{align*}
+    \Delta V = \iint_{S}\mathbf{u}\cdot\hat{n}dS.
+\end{align*}This change in volume $\Delta V$ is a result of the deformation field, and thus we can write the change in volume as:
+\begin{align*}
+    \Delta V &= \left(\dive{u}\right)\cdot V\\
+    &= \iiint_{V} \left(\dive{u}\right)\cdot dV\\
+    &= \iint_{\partial V}\mathbf{u}\cdot d\mathbf{S}
+\end{align*}From this result, we can establish the following:
+\begin{align*}
+    \frac{\Delta V}{V} = \dive{u}
+\end{align*}
+
 
 
 \section{Fluid mechanics}\label{sec: Fluid mechanics}
