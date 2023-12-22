@@ -1,0 +1,171 @@
+\documentclass[a4paper]{article}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage{mdframed}
+\usepackage{systeme,}
+\usepackage{lipsum}
+\usepackage{relsize}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes.geometric}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=newest}%1.7}
+\usepackage{harpoon}%
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{authblk}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{chngcntr}
+\usepackage{amsthm}
+\usepackage{comment}
+\usepackage{commath}
+\usepackage{hyperref}%Might remove, adds link to each reference
+\usepackage{url}
+\usepackage{calligra}
+
+% Commands
+
+\newcommand{\w}{\omega}
+\newcommand{\curl}[1]{\mathbf{\nabla}\times \mathbf{#1}}
+\newcommand{\grad}{\mathbf{\nabla}}
+\newcommand{\dive}[1]{\mathbf{\nabla}\cdot \mathbf{#1}}
+%\newcommand{\crr}{\mathfrak{r}}
+\newcommand{\res}[2]{\text{Res}(#1,#2)}
+\newcommand{\laplace}{\nabla^2}
+\newcommand{\trace}{\text{Tr}}
+\newcommand{\fpartial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\rot}[3]{\begin{vmatrix}\hat{x}&\hat{y}&\hat{z}\\\partial_x&\partial_y&\partial_z\\#1&#2&#3 \end{vmatrix}}
+
+% Special character commands
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\crr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+
+
+
+\title{Recap for FK7069}
+\author{Author : Andreas Evensen}
+\date{Date: \today}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+\section{Introduction}
+In this compendium I'll summarize the exercise made in the course, with the teachers solutions and dive into a recap of the content of the course.
+
+
+\section{Introductory math}
+In doing this compendium, I'll assume that the reader has a basic understanding of higher level mathematics. This includes the following topics: path-integrals, linear algebra, vector calculus, and differential systems.
+This compendium will solve higher level physics problem and discuss solutions for modeling physical systems. The reader is also expected to have a basic understanding of the following topics: Classical mechanics, Electrodynamics, Quantum mechanics, and Statistical mechanics.
+\subsection{Vector calculus}
+In this section I'll give a brief recap of vector calculus. This is a very important tool in physics, and is used in almost all the exercises in this course.
+\textit{Gradients} are used to describe the change in a function as a vector. Thus, the gradient takes a scalar function of two or more components and returns a vector-field.
+\begin{align*}
+    \grad f(x,y,z) &= \begin{pmatrix}\partial_x f(x,y,z)\\\partial_y f(x,y,z)\\\partial_z f(x,y,z)\end{pmatrix}.
+\end{align*}We will use this to describe phenomena in \ref{sec: Soft matter} and \ref{sec: Fluid mechanics}. Divergence is also a very important tool in vector differential calculus.
+It is used to describe the flux of a vector field through a surface. The divergence of a vector field is defined as:
+\begin{align*}
+    \dive{F} &= \partial_x F_x + \partial_y F_y + \partial_z F_z\\
+    &= \begin{pmatrix}
+        1\\
+        1\\
+        1\\
+    \end{pmatrix}\cdot \begin{pmatrix}
+        \partial_x F_x\\
+        \partial_y F_y\\
+        \partial_z F_z\\
+    \end{pmatrix}.
+\end{align*}Last but not least is the curl, which is the last type of vector differential calculus. The curl is used to describe the rotation of a vector field. The curl of a vector field is defined as:
+\begin{align*}
+    \curl{F} &= \begin{pmatrix}
+        \partial_y F_z - \partial_z F_y\\
+        \partial_z F_x - \partial_x F_z\\
+        \partial_x F_y - \partial_y F_x\\
+    \end{pmatrix}.
+\end{align*}If a vector-field is conservative, the curl of that field, $\curl{F}$, is zero. Moreover, if a vector-field $u$ can be written as gradient of a scalar-field $\psi$, then:
+\begin{align*}
+    \curl{u} &= \curl{\grad \psi} = 0.
+\end{align*}This implies that gradient fields are always conservative.
+One thing to note is that this can be done in any generalized coordinate; however, in the scope of this course, we will only use Cartesian coordinates, Polar, and Spherical coordinates.
+The definitions of such coordinate differentials can be found in any textbook on vector calculus.
+
+\vspace{0.5cm}\noindent
+There exist three types of integrals in vector-calculus: Path-integrals, surface-integrals, and volume-integrals. The path-integral is defined as:
+\begin{align*}
+    \int_{p} \mathbf{F}\cdot d\mathbf{r} &= \int_{p} F_x dx + F_y dy + F_z dz.
+\end{align*}This is used to describe the work done by a force along a path. The surface-integral is defined as:
+\begin{align*}
+    \iint_{\mathcal{S}} \mathbf{F}\cdot d\mathbf{S} &= \iint_{\mathcal{S}} F_x dS_x + F_y dS_y + F_z dS_z.
+\end{align*}This is used to describe the flux of a vector-field through a surface. The volume-integral is defined as:
+\begin{align*}
+    \iiint_{\mathcal{V}} \mathbf{F}\cdot d\mathbf{V} &= \iiint_{\mathcal{V}} F_x dV_x + F_y dV_y + F_z dV_z.
+\end{align*}These integrals are often to complex to compute as is, and thus we use the following theorems: Green's theorem, Stokes' theorem, and the divergence theorem.
+Greens theorem is used to convert a path-integral to a surface-integral. Stokes' theorem is used to convert a surface-integral to a path-integral. The divergence theorem is used to convert a volume-integral to a surface-integral.
+The formulation of these theorems are as follows:
+\begin{align*}
+    \int_{\partial S} \mathbf{F}\cdot d\mathbf{r} &= \iint_{S} \curl{F}\cdot d\mathbf{S},\quad \text{Green's theorem}\\
+    \iint_{S} \left(\curl{F}\right)\cdot d\mathbf{S} &= \oint_{\partial S} \mathbf{F}\cdot d\mathbf{r},\quad \text{Stokes' theorem}\\
+    \iiint_{V} \left(\dive{F}\right)\cdot dV &= \iint_{\partial V} \mathbf{F}\cdot d\mathbf{S}\quad \text{Divergence theorem}.
+\end{align*}These theorems are used to simplify the computation of integrals. One can therefore, almost always rewrite an integral to a simpler form, and thus compute the integral.
+We will discuss two types of differential equations, namely: Ordinary differential equations (ODEs) and partial differential equations (PDEs). ODEs are differential equations that only depend on one variable, an example of this would be:
+\begin{align*}
+    \frac{d^2y}{dx^2} + \frac{dy}{dx} + y &= 0.
+\end{align*}This is a second order ODE, and can be solved by using the characteristic equation. There exist multiple ways of solving ODEs, and we will not discuss further methods in this compendium, refer to any textbook on ODEs for further information, or visit \url{https://github.com/thesombady/FK7048/tree/main/Recap} which is a recap of the course FK7048, Mathematical methods.
+Solving PDEs are quite a bit more complicated than solving ODEs, and we will discuss solutions later in the compendium. However, note that only a handful of PDEs can be solved analytically, and one often uses numerical solutions to solve PDEs; depending on the problem one utilizes different numerical methods: Finite difference methods, finite element methods, and so on.
+
+\vspace{0.5cm}\noindent
+All PDEs must have boundary at least $n$ boundary conditions if it's an $n$ dimensional problem, moreover, the solution must also have an initial condition; the initial condition simply states that the problem has an initial state.
+The boundary conditions are used to describe how the solution behaves at the boundary of the problem; the boundary is dependent on the problem and can be a surface, a line or a volume, or higher dimensional objects.
+There exist different types of boundary conditions, Dirichlet-, Neumann-, and Robin-boundary conditions are a few of them. They are written on the form of the following, in order:
+\begin{align*}
+    \psi &= \psi_0,\\
+    \frac{\partial \psi}{\partial n} &= \psi_0,\\
+    \frac{\partial \psi}{\partial n} &= \psi_0 + \alpha\psi.
+\end{align*}At the different boundaries, the boundary conditions might be different, an example of this would be that a container is filled with a fluid, and that the fluid is being let out by a tap at the bottom.
+The boundary condition at the top would be a Dirichlet boundary stating that the inlet of fluid is constant, and the other boundary condition would be a Neumann- or Robin-boundary condition, stating that the fluid is being let out at a rate proportional to the height of the fluid being build up in the container.
+
+
+
+
+\section{Soft Matter}\label{sec: Soft matter}
+
+
+\section{Fluid mechanics}\label{sec: Fluid mechanics}
+
+\end{document}
+ 
