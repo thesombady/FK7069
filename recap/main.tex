@@ -188,7 +188,7 @@ Suppose that one has an object that is 'soft', this means that when an external 
     \label{fig: soft object deformation derivation}
 \end{figure}\noindent
 The deformation field $u$ then describes how a point $\mathbf{P}$ moves under an external force $\mathbf{F}$. The deformation field $\mathbf{u}$ is only defined for small deformation, and by doing so it's a first order approximation of the actual deformation.
-Taking the gradient of such a deformation field, one finds a third rank tensor-field, \textit{a matrix}, which then is the following:
+Taking the gradient of such a deformation field, one finds a second rank tensor-field, \textit{a matrix}, which then is the following:
 \begin{align*}
     \grad{\mathbf{u}} &= \begin{pmatrix}
         \partial_x u_x & \partial_y u_x & \partial_z u_x\\
@@ -196,7 +196,7 @@ Taking the gradient of such a deformation field, one finds a third rank tensor-f
         \partial_x u_z & \partial_y u_z & \partial_z u_z\\
     \end{pmatrix}.
 \end{align*}In two dimensions the dimension of the matrix is reduced from a $3\times 3$ to a $2\times 2$ matrix. Note that the gradient of $\mathbf{u}$ is actually the Jacobian of $\mathbf{u}$. If the deformation field $\mathbf{u}$ can be written as a gradient of a scalar field $\psi$, then the deformation field is conservative and the curl of the deformation field is zero.
-This third rank tensor can then be decomposed in a symmetric and antisymmetric part:
+This second rank tensor can then be decomposed in a symmetric and antisymmetric part:
 \begin{align*}
     \grad{\mathbf{u}} &= \underbrace{\begin{pmatrix}
         \partial_x u_x &\frac{1}{2}\left(\partial_x u_y + \partial_y u_x\right) &\frac{1}{2}\left(\partial_xu_z + \partial_zu_x\right)\\
@@ -267,9 +267,26 @@ Suppose a deformation field $\mathbf{u}(x,y) = a\left(0\hat{x} + x\hat{y}\right)
     &= \iint_{\partial V}\mathbf{u}\cdot d\mathbf{S}
 \end{align*}From this result, we can establish the following:
 \begin{align*}
-    \frac{\Delta V}{V} = \dive{u}
-\end{align*}
+    \frac{\Delta V}{V} = \dive{u}.
+\end{align*} This implies that the precentral change in volume is equal to the divergence of the deformation field.
 
+\vspace*{0.5cm}\noindent
+I've we then defined stress as being the symmetric part of the Jacobian of the deformation field, but what is then stress? 
+Stress is also a second rank tensor, and is defined as the force per unit area. We start by saying that there are two 'solids' in contact with each other.
+By Newtons third law, they exert a force on each other equal in size but opposite in direction. If we then say that the differential of the force, in one component is given by a linear relationship, we obtain the stress tensor:
+\begin{align*}
+    dF_i &= \sigma_{ij}dS_j,\\
+    dF_i &= T_{i,j}dS_j
+\end{align*}This $F$ is force per unit area, and to get the total force, one has to integrate over the entire surface, and by using the Divergence theorem, we can rewrite that integral as a volume integral instead:
+\begin{align*}
+    \mathbf{F} &= \iint_{\partial V}\mathbf{T}d\mathbf{S}\\
+    &=\iiint_{V}\left(\dive{T}\right)dV.
+\end{align*}Therefore, the force per unit area vector $\mathbf{f}$ is given by $\mathbf{f} = \dive{T}$. Generally, the divergence of a vector field is a scalar quantity, however, in this case it's actually a vector quantity.
+If one combines what we know so far about stress with the equations of motion, one obtains the following expression:
+\begin{align*}
+    \rho\frac{d v_i}{dt} &=\partial_jT_{ij}\\
+    \rho\frac{dv_\alpha}{dt} &= \partial_\beta\sigma_{\alpha\beta}
+\end{align*}
 
 
 \section{Fluid mechanics}\label{sec: Fluid mechanics}
