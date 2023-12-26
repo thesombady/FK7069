@@ -44,6 +44,7 @@
 \newcommand{\trace}{\text{Tr}}
 \newcommand{\fpartial}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\rot}[3]{\begin{vmatrix}\hat{x}&\hat{y}&\hat{z}\\\partial_x&\partial_y&\partial_z\\#1&#2&#3 \end{vmatrix}}
+\newcommand{\f}{\mathcal{F}}
 
 % Special character commands
 \DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
@@ -284,9 +285,94 @@ By Newtons third law, they exert a force on each other equal in size but opposit
 \end{align*}Therefore, the force per unit area vector $\mathbf{f}$ is given by $\mathbf{f} = \dive{T}$. Generally, the divergence of a vector field is a scalar quantity, however, in this case it's actually a vector quantity.
 If one combines what we know so far about stress with the equations of motion, one obtains the following expression:
 \begin{align*}
-    \rho\frac{d v_i}{dt} &=\partial_jT_{ij}\\
-    \rho\frac{dv_\alpha}{dt} &= \partial_\beta\sigma_{\alpha\beta}
+    \rho\frac{d v_i}{dt} &=\partial_jT_{ij},\\
+    \rho\frac{dv_\alpha}{dt} &= \partial_\beta\sigma_{\alpha\beta}.
+\end{align*}The difference between the normal equations of motion is that we only have mass density $\rho(x,y,z)$ instead of mass; we look at all individual points within the body.
+Within most cases, however, the problem is static, i.e. that the body does not move, but only gets deformed, and thus the equations of motions simply becomes:
+\begin{align*}
+    \partial_jT_{ij} &= 0,\\
+    \partial_\beta\sigma_{\alpha\beta} &= 0.
+\end{align*}We have so far assumed that the forces are localized interactions between the molecules of the body; this is a valid assumption in most cases due to the majority of matter being neutrally charged; hence, the forces keeping the body together are dipole-interactions which has short radii.
+However, if the body is constructed of charged material, then this approach does not work. Generally, the stress tensor obeys at the boundary:
+\begin{align*}
+    \sigma_{\alpha\beta}n\beta &= 0,\\
+    T_{i,j}n_j &= 0,
+\end{align*}which simply means that the stress tensor is perpendicular to the surface of the body. This is a result of force-balancing; torque-balancing also plays a role, which shows that the stress tensor is symmetric; just like the strain tensor.
+In the stress tensor, we have two indices, these two are the directions of the stress in the object. The first index is the direction of the second index, which then is the boundary. So at $x$ we have directions in the $x$ direction and in the $y$ direction which then yields the elements of $T$ to be written as:
+\begin{align*}
+    T_{xx} &= \sigma_{xx},\quad \text{$x$ direction}\\
+    T_{yx} &= \sigma_{yx}\quad \text{$y$ direction}.
+\end{align*}Suppose that a 'soft' body has an external force $\mathbf{P}$ acting on its surface; if the body is in equilibrium, then show that the average stress, defined as:
+\begin{align*}
+    \langle\sigma_{\alpha\beta}\rangle &=\frac{1}{V}\int_V \sigma_{\alpha\beta}dV,
+\end{align*}is given by:
+\begin{align*}
+    \langle\sigma_{\alpha\beta}\rangle &= \frac{1}{2V}\oint P_\alpha x_\beta + P_\beta x_\alpha dS.
+\end{align*}First, we can define the stress tensor as:
+\begin{align*}
+  \sigma_{\alpha\beta} &= \frac{1}{2}\left(\frac{\partial T_{\alpha\beta}}{\partial x_\gamma} x_\gamma + T_{\gamma\beta}\delta_{\alpha\gamma}\right),
+\end{align*}where $T_{\alpha\beta}$is the Cauchy stress tensor, and $\delta_{\alpha\beta}$ is the Kronecker delta. Now, we can use the divergence theorem to write:
+\begin{align*}
+  \oint \mathbf{T} \cdot \mathbf{n} dS &= \int_V \nabla \cdot \mathbf{T} dV,
+\end{align*}where n is the outward-pointing normal vector to the surface. The Cauchy stress tensor can be decomposed into the stress tensor and the body force:
+\begin{align*}
+  \mathbf{T} &= \mathbf{\sigma} + \mathbf{P},
+\end{align*}where P is the body force vector. Using these definitions, we can write:
+\begin{align*}
+  \oint (\mathbf{\sigma} + \mathbf{P}) \cdot \mathbf{n} dS &= \int_V \nabla \cdot \mathbf{\sigma} + \nabla \cdot \mathbf{P} dV.
+\end{align*}Since the body is in equilibrium, $\dive{P}=0$. Then, using the definition of the average stress, we can write:
+\begin{align*}
+  \oint \sigma_{\alpha\beta} x_\beta + P_\alpha \cdot \mathbf{n} dS &= \int_V \frac{\partial \sigma_{\alpha\beta}}{\partial x_\gamma} x_\gamma dV.
+\end{align*}Integrating both sides of the equation, we get:
+\begin{align*}
+  \frac{1}{2}\oint P_\alpha x_\beta + P_\beta x_\alpha dS &= \langle\sigma_{\alpha\beta}\rangle.
+\end{align*}Thus, the average stress is given by:
+\begin{align*}
+  \langle\sigma_{\alpha\beta}\rangle &= \frac{1}{V}\int_V \sigma_{\alpha\beta}dV.
 \end{align*}
+
+\vspace*{0.5cm}\noindent
+Elasticity and energy is also a great concept within soft matter. Suppose that when a body is deformed, it requires some work to obtain the new state; the change in work is then given by:
+\begin{align*}
+    \delta W = -\sigma_{\alpha\beta}\delta s_{\alpha\beta},
+\end{align*}where $\sigma$ is the stress tensor and $\delta s$ is the strain tensor. Using the definition of the Helmholtz free energy, we state:
+\begin{align*}
+    TdS &= dU - \sigma_{\alpha\beta}d s_{\alpha\beta},
+\end{align*}where $T$ is the temperature, $S$ is the entropy and $U$ is the stored energy; we use the stored energy as the free energy.
+How does one then obtain the free energy $\f$? One can use Landau theory to obtain the free energy. This leads to the following expression:
+\begin{align}
+    \f = \f_0 + \frac{1}{2}\lambda s_{\alpha\alpha}^2 + \mu s_{\alpha\beta}s_{\alpha\beta},\label{eq: free energy lame coefficients}
+\end{align}where $\f_0$ is trivially set to $0$. $\lambda$ and $\mu$ are the so called Lamé coefficients.
+The strain tensor $s_{\alpha\beta}$ can be decomposed into two separate tensors, the pure sheer and volume change strain tensor. 
+\begin{align*}
+    s_{\alpha\beta} &= \underbrace{\left(s_{\alpha\beta} - \frac{1}{3}\delta_{\alpha\beta}s_{\nu\nu}\right)}_{\text{Pure sheer}} + \underbrace{\frac{1}{3}\delta_{\alpha\beta}s_{\nu\nu}}_{\text{Volume}}.
+\end{align*}Using this decomposition of the strain tensor, one can rewrite the free energy eq\eqref{eq: free energy lame coefficients} as:
+\begin{align*}
+    \f &= \mu\left(s_{\alpha\beta} - \frac{1}{3}\delta_{\alpha\beta}s_{\nu\nu}\right)^2 + \frac{1}{2}K\frac{1}{3}\delta_{\alpha\beta}s_{\nu\nu}^2,
+\end{align*}where $\mu$ is the so-called sheer modulus and $K$ is the bulk modulus of the material, $K = \lambda + \frac{1}{3}\mu$.
+
+\vspace*{0.5cm}\noindent
+What is then elasticity, or Elastostatics? It's the study of how soft body can deform under an external force.
+We do elastostatics by the means of Navier-Cauchy equations; which is a set of PDEs that describes the motion of a soft body under some deformation.
+\begin{align}
+    \left(\lambda + \mu\right)\mathbf{\nabla}\left(\dive{u}\right)+\mu\laplace{u} &=0, \label{eq: Navier-Cauchy}
+\end{align}This however can be rewritten with the Young's modulus $Y$ and the Poisson ratio $\sigma$; we have some bad naming convention here since $\sigma$ is also the stress.
+\begin{align*}
+    Y = \frac{9K\mu}{3K + \mu}, \quad \sigma = \frac{1}{2}\left(\frac{3K - 2\mu}{3K + \mu}\right).
+\end{align*}The equations of elasticity can then be written as:
+\begin{align*}
+    \f &= \frac{Y}{2(1 + \sigma)}\left(s_{\alpha\beta}^2+ \frac{\sigma}{1-2\sigma}s_{\nu\nu}^2\right),\\
+    \sigma_{\alpha\beta}&= \frac{Y}{1+\sigma}\left(s_{\alpha\beta} + \frac{\sigma}{1-2\sigma}\delta_{\alpha\beta}s_{\nu\nu}\right),\\
+    \implies -\frac{2(1+\sigma)}{Y}\mathbf{f} &= \frac{1}{1-2\sigma}\nabla\left(\dive{u}\right) + \nabla^2\mathbf{u}.
+\end{align*}Here, $\mathbf{f}$ is then the external force per unit volume. If the external force is $0$, then the equation of elasticity becomes easier, and can be computed with numerous methods, one of them being the Fourier transform and the Green's function.
+One can also use numerical methods to solve the PDE as is. The homogenous equation of elasticity, given by eq \eqref{eq: Navier-Cauchy}, can also be written with the Poisson ratio $\sigma$ instead of the Lamé coefficients $\lambda$ and $\mu$;
+\begin{align*}
+    \nabla\left(\dive{u}\right)+(1-2\sigma)\laplace{u} &= 0.
+\end{align*}
+
+
+
+
 
 
 \section{Fluid mechanics}\label{sec: Fluid mechanics}
