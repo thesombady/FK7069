@@ -410,13 +410,92 @@ Assume two spheres in contact with each other; both having some radii $R_1$ and 
     \end{tikzpicture}
     \caption{Figure of the system}
     \label{fig: hertzian spheres}
-\end{figure}\noindent The contact area between the two sphere is a circle with radius $a$. Using this, one can estimate the displacement $h$:
+\end{figure}\noindent The contact area between the two sphere is a circle with radius $a$. Using this, one can estimate the displacement $h$\footnote{\url{https://en.wikipedia.org/wiki/Contact_mechanics}}:
 \begin{align*}
     h&\propto \frac{F^{\frac{2}{3}}}{\left(Y_h\cdot R_H\right)^{\frac{2}{3}}},\\
     R_H &= \frac{1}{R_1} + \frac{1}{R_2}, \quad Y_H = \frac{1}{Y_1} + \frac{1}{Y_2},\\
     a&\propto \left(\frac{R_H\cdot F}{Y_H}\right)^{\frac{1}{3}}.
 \end{align*}
 
+\subsection{Plates and bending}
+Assume we have a plate, which is being bent. The plate has some thickness and being bent by some external force.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[dashed, fill = gray!2] (-3, 0) rectangle (3, 1);
+        \draw[->] (0, 0) -- (4, 0) node[right] {$x$};
+        \draw[->] (0, 0) -- (0, 4) node[right] {$z$};
+        %\draw[->] (0, 0) -- (-1, -1) node[right] {$y$};
+        \draw (-3, 0) .. controls (0, -1) .. (3, 0);
+        \draw (-3, 1) .. controls (0, 0) .. (3, 1);
+        \draw (-3, 0) -- (-3, 1);
+        \draw (3, 0) -- (3, 1);
+    \end{tikzpicture}
+    \caption{Bent plate in the $xy$ plane}
+    \label{fig: bent plate}
+\end{figure}\noindent
+One has that $\sigma_{xz} = \sigma_{yz} = \sigma_{zz} = 0$, which is on all the surfaces, but also that the deformation is only a function of $x$ and $y$, and thus $u_z^{(0)} = w(x,y)$.
+\begin{align*}
+    \sigma_{zx} &= \frac{Y}{1+\sigma}s_{zx}\\
+    \sigma_{zy} &= \frac{Y}{1+\sigma}s_{zy}\\
+    \sigma_{zz} &= \frac{Y}{(1+\sigma)(1-2\sigma)}\left(\left[1-\sigma\right]s_{zz} + \sigma\left[s_{xx} + s_{yy}\right]\right)\\
+    \implies \frac{\partial u_x}{\partial z} &= - \frac{\partial u_z}{\partial x}\&\quad \frac{\partial u_y}{\partial z} = - \frac{\partial u_z}{\partial y}\quad\quad\quad (*)\\
+    s_{zz} &= -\frac{\sigma}{1-\sigma}\left(s_{xx} + s_{y}\right)
+\end{align*}The equation $(*)$ can be expressed with $w(x,y)$ instead, since the $u$ is the displacement in the $z$ direction. Thus, $u_x = -z\cdot \partial_x w(x,y)$ and $u_y = -z\cdot\partial_y w(x,y)$.
+The strain tensor $s$ can thus be expressed with our variables $u$:
+\begin{align*}
+    s_{xx} &= -z \frac{\partial^2 w(x,y)}{\partial x^2} \quad \& \quad s_{yy} = -z \frac{\partial^2 w(x,y)}{\partial y^2},\\
+    s_{xy} &= s_{yx} = -z \frac{\partial^2 w(x,y)}{\partial x\partial y},\\
+    s_{zz} &= -\frac{\sigma}{1-\sigma}\left(s_{xx} + s_{y}\right)\\
+    &=\frac{\sigma\cdot z}{1 - \sigma}\left(\nabla^2 w(x,y)\right).
+\end{align*}The free energy $\f$ is then given by:
+\begin{align*}
+    \f &= \int_V F(x,y,z)dxdydz\\
+    &=\int_V \underbrace{\frac{Y}{2(1 + \sigma)}\left(s_{\alpha\beta} + \frac{\sigma}{1 - 2\sigma}\delta_{\alpha\beta}s_{\nu\nu}\right)}_{F(x,y,z)}dxdydz\\
+    &=\int_{-\frac{h}{2}}^\frac{h}{2} dz \left(z^2\right) \iint \frac{Y}{2(1 + \sigma)}\left(s_{\alpha\beta} + \frac{\sigma}{1 - 2\sigma}\delta_{\alpha\beta}s_{\nu\nu}\right)dxdy\\
+    &=\frac{Yh^3}{24(1 - \sigma^2)}\underbrace{\iint \left(\left[\nabla^2w\right]^2 + 2(1-\sigma)\left[\left(\frac{\partial^2 w}{\partial x\partial y}\right)^2 - \frac{\partial^2 w}{\partial x^2} \frac{\partial^2 w}{\partial y^2}\right]\right)dxdy}_{\f_{\text{plate}}}
+\end{align*}
+Moreover, since the plates free energy is a function of $w(x,y)$, which is the displacement in the $z$ direction, we can often estimate the $w(x,y)$ function by a curvature. Therefore, the free energy of the plate can be written as:
+\begin{align*}
+    \f_{\text{2d}}^{\text{plate}} &= B\int_{\partial V} \left(\frac{1}{R_1} + \frac{1}{R_2}\right)^2dx_1dx_2
+\end{align*}where then $B$ is the so-called bending modulus, and $R_1$ and $R_2$ are the radii of curvature of the plate. The bending modulus is given by:
+\begin{align*}
+    B &= \frac{Yh^3}{24(1-\sigma^2)}\quad \text{By comparison from above expression}
+\end{align*}The bending modulus is a measure of how stiff the plate is, and is a measure of how much energy is required to bend the plate. The bending modulus is a measure of the stiffness of the plate, and is a measure of how much energy is required to bend the plate.
+
+\vspace*{.5cm}\noindent
+One can divide the phenomena in two cases, bending with stretching and bending without stretching. If one has without stretching, one can use a cylindrical system, whilst with stretching, one has to divide the system up in to components.
+\begin{align*}
+    \f_{2d}^{BS} &= \underbrace{B\int_{\partial V}\left(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial x^2}\right)w\cdot dxdy}_{\text{Bending free energy}} + \underbrace{\frac{Y_{\text{2d}}}{2(1+\sigma_{\text{2d}})}\int_{\partial V}\left(s_{\alpha\beta}^2 + \frac{\sigma_{\text{2d}}}{1-\sigma_{\text{2d}}}\delta_{\alpha\beta}s_{\nu\nu}\right)dxdy}_{\text{Stretching free energy}}
+\end{align*}
+An example of this would be the following: the bending and stretching of a plate being pressed down.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (0,0) -- (3,0) -- (4, 1) node[right, pos = 0.45] {$l$} -- (1, 1) -- (0, 0);
+        %\draw[dashed] (0,0 - 0.5) -- (3,0 - 0.5) -- (4, 1 - 0.5) -- (1, 1 - 0.5) -- (0, 0 - 0.5);
+        \draw[<->] (0, 0) -- (0, -0.5) node[left, pos = 0.5] {$d$};
+        \draw[dashed] (0, 0) .. controls (1.5, -.7) .. (3, 0);
+        \draw[dashed] (0, -.5) -- (1.5, -.5);
+    \end{tikzpicture}
+    \label{fig: plate bending}
+    \caption{Figure of the system}
+\end{figure}\noindent
+The Young's modulus $Y_{\text{2d}}$ and the Bending modulus $B$ are given by:
+\begin{align*}
+    Y_{\text{2d}} &= \frac{Yh}{1-\sigma^2},\\
+    B &= \frac{Yh^3}{24(1-\sigma^2)}.
+\end{align*}The displacement $d$ is almost $w(x,y)$ and since we're in the order of $l$ of length scale, $\partial w$ is of the order $\frac{d}{l}$.
+Therefore,
+\begin{align*}
+    \frac{\partial w}{\partial x_1}\frac{\partial w}{\partial x_2} \approx \left(\frac{d}{l}\right)^2\quad\&\quad \frac{\partial^2 w}{\partial x_\alpha} \approx \frac{d}{l^2}.
+\end{align*}The stretching and bending contributes in the order of:
+\begin{align*}
+    \frac{Y_{\text{2d}}d^4}{l^4}l^2 \quad &\& \quad \frac{Bd^2}{l^4}l^2,\\
+    \implies \frac{\frac{Y_{\text{2d}}d^4}{l^4}l^2}{\frac{Bd^2}{l^4}l^2} &=\frac{Y_{\text{2d}}d^2}{B}= \left(\frac{d}{h}\right)^2.
+\end{align*}If the sheet is very thin, i.e. $d >> h$ then the stretching is greater than the bending, and otherwise vice-versa.
+Thus, if one pushes down on the sheet, the sheet will deform with a circular curvature, say with radii $a$. The area is then proportional to $a^2$ and the work done is simply the $f^{\text{surf}}\cdot d\sim Y_{\text{2d}}\left(\frac{d}{l}\right)^4$.
+Therefore, the displacement $d$ is proportional to $\left(f^{\text{surf}}\right)^\frac{1}{3}$
 
 
 
