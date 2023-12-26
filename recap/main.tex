@@ -494,10 +494,15 @@ Therefore,
     \frac{Y_{\text{2d}}d^4}{l^4}l^2 \quad &\& \quad \frac{Bd^2}{l^4}l^2,\\
     \implies \frac{\frac{Y_{\text{2d}}d^4}{l^4}l^2}{\frac{Bd^2}{l^4}l^2} &=\frac{Y_{\text{2d}}d^2}{B}= \left(\frac{d}{h}\right)^2.
 \end{align*}If the sheet is very thin, i.e. $d >> h$ then the stretching is greater than the bending, and otherwise vice-versa.
-Thus, if one pushes down on the sheet, the sheet will deform with a circular curvature, say with radii $a$. The area is then proportional to $a^2$ and the work done is simply the $f^{\text{surf}}\cdot d\sim Y_{\text{2d}}\left(\frac{d}{l}\right)^4$.
-Therefore, the displacement $d$ is proportional to $\left(f^{\text{surf}}\right)^\frac{1}{3}$
+Thus, if one pushes down on the sheet, the sheet will deform with a circular curvature, say with radii $a$.
+The area is then proportional to $a^2$ and the work done is simply the $f^{\text{surf}}\cdot d\sim Y_{\text{2d}}\left(\frac{d}{l}\right)^4$. This comes from the stretching of the sheet.
+Therefore, the displacement $d$ is proportional to $\left(f^{\text{surf}}\right)^\frac{1}{3}$.
 
-
+\subsection{Shells}
+When dealing with shells, the strain has another contribution, namely the curvature of the shell. Thus, the strain tensor is given by:
+\begin{align*}
+    s_{\alpha\beta} &= \frac{1}{2}\left(\partial_\alpha u_\beta + \partial_\beta u_\alpha\right) + \frac{\partial w}{\partial x_\alpha}\frac{\partial w}{\partial x_\beta} + \delta_{\alpha\beta}\left(\frac{w}{R}\right),
+\end{align*}here $R$ is the radii of curvature, and in the case of a flat plane, $R \to\infty$ and thus the last term vanishes.
 
 
 
