@@ -295,7 +295,7 @@ Within most cases, however, the problem is static, i.e. that the body does not m
 \end{align*}We have so far assumed that the forces are localized interactions between the molecules of the body; this is a valid assumption in most cases due to the majority of matter being neutrally charged; hence, the forces keeping the body together are dipole-interactions which has short radii.
 However, if the body is constructed of charged material, then this approach does not work. Generally, the stress tensor obeys at the boundary:
 \begin{align*}
-    \sigma_{\alpha\beta}n\beta &= 0,\\
+    \sigma_{\alpha\beta}n_\beta &= 0,\\
     T_{i,j}n_j &= 0,
 \end{align*}which simply means that the stress tensor is perpendicular to the surface of the body. This is a result of force-balancing; torque-balancing also plays a role, which shows that the stress tensor is symmetric; just like the strain tensor.
 In the stress tensor, we have two indices, these two are the directions of the stress in the object. The first index is the direction of the second index, which then is the boundary. So at $x$ we have directions in the $x$ direction and in the $y$ direction which then yields the elements of $T$ to be written as:
@@ -366,9 +366,57 @@ We do elastostatics by the means of Navier-Cauchy equations; which is a set of P
     \implies -\frac{2(1+\sigma)}{Y}\mathbf{f} &= \frac{1}{1-2\sigma}\nabla\left(\dive{u}\right) + \nabla^2\mathbf{u}.
 \end{align*}Here, $\mathbf{f}$ is then the external force per unit volume. If the external force is $0$, then the equation of elasticity becomes easier, and can be computed with numerous methods, one of them being the Fourier transform and the Green's function.
 One can also use numerical methods to solve the PDE as is. The homogenous equation of elasticity, given by eq \eqref{eq: Navier-Cauchy}, can also be written with the Poisson ratio $\sigma$ instead of the Lamé coefficients $\lambda$ and $\mu$;
+\begin{align}
+    \nabla\left(\dive{u}\right)+(1-2\sigma)\laplace{u} &= 0. \label{eq: Hom Navier-Cauchy Poisson}
+\end{align}The homogenous equation of elasticity is very nice in the sense that is a second order linear PDE, and therefore the PDE exhibits certain properties.
+Mainly, that there exists a unique solution to the problem and superposition of solutions, and that the symmetry of the problem is reflected in the symmetry of the solution, e.g. if the system is spherically symmetric, the solution is going to be spherically symmetric.
+
+\vspace*{0.5cm}\noindent
+In balancing the external force and the internal force, we reach the following:
 \begin{align*}
-    \nabla\left(\dive{u}\right)+(1-2\sigma)\laplace{u} &= 0.
+    \sigma_{\alpha\beta}n_\beta = f_\alpha^{\text{surf}},
+\end{align*}where $f^{\text{surf}}$ is the force per unit area. We can use this fact to derive the boundary conditions when to bodies are place in contact with each other; this could for example be when we fix a soft body against a rigid one.
+At the interface between the two medium, thus we assume a cylindrical volume element;
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[] (0,0) rectangle (2, 3);
+        \draw[] (2,0) rectangle (4, 3);
+        \node at (1, 1.5) {$(1)$};
+        \node at (3, 1.5) {$(2)$};
+        \draw[color = red] (2,0) -- (2,3);
+        \draw[dashed] (2.5, 0.5) arc (-90:90:1);
+        \draw[dashed] (1, 0.5) arc (-90:90:1);
+        \draw[dashed] (1, 0.5) -- (2.5, 0.5);
+        \draw[dashed] (1, 0.5 + 2) -- (2.5, 0.5 + 2);
+    \end{tikzpicture}
+    \caption{A cylindrical volume element.}
+    \label{fig: cylindrical volume element}
+\end{figure}\noindent
+The area encapsulated in the cylinder at the interfaces is then $\Delta S$, balancing the momentum one gets:
+\begin{align*}
+    \int_V \partial_\beta\sigma_{\alpha\beta}dV &= \int_V f_\alpha^\text{volume}dV,\\
+    \implies \left(\sigma_{\alpha\beta}^{(1)} - \sigma_{\alpha\beta}^{(2)}\right)n_\beta &= f_\alpha^\text{surf}.
+\end{align*}The superscript $(1)$ and $(2)$ denotes the two different bodies. Only if the surface force between the two bodies, is the stress tensor continuous across the boarder, otherwise, the stress tensor has a discontinuity. This can be seen when two objects are in contact with each other, and they do not mix.
+
+\vspace{0.5cm}\noindent
+Assume two spheres in contact with each other; both having some radii $R_1$ and $R_2$, and Young's modulus $Y_1$ and $Y_2$. The spheres are then pushed together with a force $F$ and are compressed a distance $h$.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (0,0) circle (2cm);
+        \draw (3.8,0) circle (2cm);
+        \draw[<->, color = blue] (1.8, 0) -- (2, 0) node[below, pos = 0.5] {$h$};
+    \end{tikzpicture}
+    \caption{Figure of the system}
+    \label{fig: hertzian spheres}
+\end{figure}\noindent The contact area between the two sphere is a circle with radius $a$. Using this, one can estimate the displacement $h$:
+\begin{align*}
+    h&\propto \frac{F^{\frac{2}{3}}}{\left(Y_h\cdot R_H\right)^{\frac{2}{3}}},\\
+    R_H &= \frac{1}{R_1} + \frac{1}{R_2}, \quad Y_H = \frac{1}{Y_1} + \frac{1}{Y_2},\\
+    a&\propto \left(\frac{R_H\cdot F}{Y_H}\right)^{\frac{1}{3}}.
 \end{align*}
+
 
 
 
