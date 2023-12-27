@@ -524,7 +524,7 @@ Typically, the bond-angle is determined by the type of chemical bond, and thus c
 
 \vspace*{0.5cm}\noindent
 The bending energy is however typically small compared to that of the thermal energy of the polymer, which is in order of $k_bT$.
-There exists some typical questions regarding polymers a physicist can ask: What is the average length of the polymer, What is the force required to pull the polymer a distance $d$, ... .
+There exists some typical questions regarding polymers a physicist can ask: What is the average length of the polymer, What is the force required to pull the polymer a distance $d$, ....
 If one has a polymer, fastened at one end, which is straight but being deformed by some bending, then the free energy is given by:
 \begin{align*}
     \f^{\text{bend}} &= \frac{B}{2}\int_0^L \frac{1}{R^2} ds\\
@@ -675,8 +675,87 @@ Therefore, the stress tensor $\sigma_{\alpha\beta}^v$ but me a forth rank isotro
 \end{align*}The equation of motion is then given by, for an incompressible fluid:
 \begin{align}
     \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} - \partial_\beta\sigma_{\alpha\beta}^v &= -\frac{\nabla p}{\rho} - \nabla\psi.\nonumber\\
-    \implies \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} &= -\frac{\nabla p}{\rho} - \nabla\psi + \mu\nabla^2\vec{v}.\label{eq: Navier-Stokes incompressible}
-\end{align}
+    \implies \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} &= -\frac{\nabla p}{\rho} - \nabla\psi + \frac{\mu}{\rho}\nabla^2\vec{v}.\label{eq: Navier-Stokes incompressible}
+\end{align}One writes $\nu = \frac{\mu}{\rho}$ to be the kinematic viscosity, and the equation is coupled with $\nabla\cdot\vec{v} = 0$.
+From here it's important to implement the Reynolds number $\text{Re}$ to be defined as:
+\begin{align*}
+    \text{Re} &= \frac{U\cdot L}{\nu},
+\end{align*}where $U$ is the typical velocity-scale, and $L$ is the typical length-scale. One has three scenarios here $\text{Re}$ begin zero, $\text{Re}$ begin nonzero, and $\text{Re}$ begin infinite.
+We will deal with cases $\text{Re}<< 1$, and thus the term will contribute less to the solution and can often be approximate to be zero.
+In the case of $\text{Re} = 0$ eq \eqref{eq: Navier-Stokes incompressible} becomes:
+\begin{align}
+    \begin{cases}
+        \nabla^2\vec{v} &= 0,\\
+        \nabla\cdot\vec{v} &= 0,
+    \end{cases}\label{eq: Stokes equation}
+\end{align}which then is the Stokes-equation.
+
+\subsection{Stokes equation}
+Suppose Navier-Stokes equation, eq \eqref{eq: Navier-Stokes incompressible}, but without an external force:
+\begin{align*}
+    \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} &= \nu\nabla^2\vec{v} - \frac{\nabla p }{\rho},
+\end{align*}if the Reynolds number goes towards zero, one can often state that the equation of PDE becomes:
+\begin{align}
+    \nu\nabla^2\vec{v} -\frac{\nabla p }{\rho} &= 0.\label{eq: Stokes problem}
+\end{align}This is not always the case, but one often assumes it is. This equation is called Stokes-Problem.
+The problem is linear and time-independent; time reversibility is possible. This is still coupled to $\dive{v} = 0$.
+Where can one then see this problem in real life? In fluid flow in narrow channels, e.g. blood in flow in the arteries, sedimenting particles in a fluid, and microorganisms swimming in a fluid.
+One often calls this regime "Land of no Inertia", since inertia plays 'no' role in the flow of these types.
+
+\vspace*{.5cm}\noindent
+We will now solve the Stokes problem in a narrow channel, using the so-called Lubrication approximation.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (0,2) -- (8,2); 
+        \draw (0,-2) -- (8,-2); 
+        %\draw (-3, 0) .. controls (0, -1) .. (3, 0);
+        \draw[dashed] (0 + 0.2,-2) .. controls (2, 0) .. (0 + 0.2, 2);
+        \draw[dashed] (3 + 0.2,-2) .. controls (5, 0) .. (3 + 0.2, 2);
+        \draw[dashed] (6 + 0.2,-2) .. controls (8, 0) .. (6 + 0.2, 2);
+        \draw[->] (0,0) -- (8,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,3) node[right] {$y$};
+    \end{tikzpicture}
+    \caption{Narrow channel of fluid}
+    \label{fig: Lubrication approximation}
+\end{figure}\noindent
+The velocity $\vec{v}=\binom{V}{U}$, and we have that $\partial_x V + \partial_y U = 0$. We say that we have a local parabolic velocity profile, and that the velocity is independent on the $x$ position, i.e. $\vec{v}(y)$.
+This leads to the following equation:
+\begin{align*}
+    \mu\left(\partial_x^2V + \partial_y^2U\right) &= \partial_x p; \quad \partial_y^2 >> \partial_x^2.
+\end{align*}Here $p$ is only a function of $x$ and not of $y$. One has then to impose some boundary conditions, and in this instance, we know from previous discussed phenomena that the velocity at the boundary should be zero.
+So suppose that the height of the channel is given y $h$, and centering then channel at $y=0$ implies $y \pm \frac{h}{2}$ is the boundaries. If we say $\vec{v} = (U, V)^T$, and $\nabla p = (\partial_x p, 0)^T$, then we obtain the set of equations:
+\begin{align*}
+    \nabla^2\vec{v}_x &= \left(\partial_x^2 + \partial_y^2\right)U,\\
+    \nabla^2\vec{v}_y &= \left(\partial_x^2 + \partial_y^2\right)V,\\
+\end{align*}and letting $V = 0$, and $U$ only being a function of $y$ as per indicated in the figure above, fig \ref{fig: Lubrication approximation}, one then obtains:
+\begin{align*}
+    \mu\partial_y^2U &= -\partial_x p = -G,
+\end{align*}since the pressure is only a linear function. The solution to that ODE is then given by:
+\begin{align*}
+    U &= U_0 \left(\frac{h^2}{4} - y^2\right), 
+\end{align*}which satisfies the boundary conditions. Lastly, one needs to find the initial velocity $U_0$ which is obtained from differentiating the solution twice and plugging that into the ODE:
+\begin{align*}
+    U &= \left(\frac{G}{2\mu}\right)\left(\frac{h^2}{4} - y^2\right).
+\end{align*}One can also look at the flux of the flow:
+\begin{align*}
+    \Phi(h) &= \int_{-\frac{h}{2}}^\frac{h}{2}U(y)dy = \frac{Gh^3}{12\mu}.
+\end{align*}
+
+\vspace*{.5cm}\noindent
+How does one then solve the sedimenting bodies problem? If one looks at eq \eqref{eq: Stokes problem}, and construct a new vector $\mathbf{w} = \nabla\times\vec{v}$, then one obtains the following equation:
+\begin{align*}
+    \nabla^2\mathbf{w} &= 0,
+\end{align*}where then we further simply the problem by stating that we can say that the velocity field $\vec{v}$ can be written as:
+\begin{align*}
+    \vec{v} &= -\hat{x}\partial_y \psi + \hat{y}\partial_x\psi,
+\end{align*}which yields the so-called Bi-laplace equation:
+\begin{align*}
+    \nabla^4\psi &= 0,
+\end{align*}with some boundary conditions given on $\nabla\psi$. However, the same problem can be solved by abusing symmetry.
+
+
+
 
 
 
