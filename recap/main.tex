@@ -754,6 +754,43 @@ How does one then solve the sedimenting bodies problem? If one looks at eq \eqre
     \nabla^4\psi &= 0,
 \end{align*}with some boundary conditions given on $\nabla\psi$. However, the same problem can be solved by abusing symmetry.
 
+\vspace*{0.5cm}\noindent
+Suppose now a similar problem to the one above, where one had a fluid flow in a narrow constant height channel. If the height is varying as a function of $x$ the problem becomes quite different.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (-.5, 0) -- (9, 0) node[below] {$x$};
+        \draw[->] (-.5, 0) -- (-.5, 3) node[left] {$y$};
+        \draw (3, 0) -- (3, 1.375) node[right, pos = .5] {$h(x)$};
+
+        \draw (0 ,1) -- (8, 2);
+        \draw (0, -1) -- (8, -2);
+    \end{tikzpicture}
+    \caption{Lubrication approximation when height is changing}
+    \label{fig: Lubrication approximation height change}
+\end{figure}\noindent
+The velocity is still zero at the boundaries, as per experimental observations, but how does the velocity profile look?
+We assume that the velocity profile is still locally parabolic, if our solution is wrong, then our assumption was wrong, as simple as that.
+One thing one has to state is that the channels' height is slowly varying, i.e. $dh$ is almost zero. We still apply the approximation that the flow is only dependent in one axis, namely the $y$ axis, and thus one obtains the following solution:
+\begin{align*}
+    U(y) &= A\cdot\left(h^2 -y^2\right),
+\end{align*}where $A$ is a function of $x$ and the constant $h$ is different from before. If we compute the flow we obtain the following:
+\begin{align*}
+    \Phi(x) &= \frac{4}{3}A(x)h(x)^3 = \text{const}.
+\end{align*}The flux is constant due to $\nabla\cdot\vec{v} = 0$, conservation statement. There exists another problem thought, that is that the $A(x)$ is also depending on the pressure of the fluid, since the pressure is not constant due to the flow velocity; not the height difference since we're ignoring the gravitational potential.
+Thus, the change in pressure is given by:
+\begin{align*}
+    \frac{d p}{d x} &= \mu\frac{\partial^2 U}{\partial y^2}\\
+    &=-2\mu A(x).
+\end{align*}Thus, the pressure is given by:
+\begin{align*}
+    p(x) &= p_{in} - 2\mu\int_0^x A(x')dx'\\
+    &= p_{in} - \frac{3\mu}{2}\Phi\int_0^x\frac{1}{h(x')}dx'.
+\end{align*}Know the pressure difference between the inlet and outlet lets one find $\Phi$:
+\begin{align*}
+    p_{out} - p_{in} &= - \frac{3\mu}{2}\phi\int_0^L\frac{1}{h(x')}dx',\\
+    \implies A(x) &= \frac{3\mu\Phi}{4}.
+\end{align*}Now, the problem is solved since $U(y) = A(x)(h^2 - y^2)$.
 
 
 
