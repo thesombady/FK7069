@@ -592,6 +592,92 @@ Why is it a question for debate? The above definition is a mechanical definition
 \begin{align*}
     g(r) &= \frac{1}{4\pi r^2}\frac{d n}{dr},
 \end{align*}where $n$ is the number of neighbors. Mostly, in a fluid, the radial distribution function has peeks at a given distance close to the origin, but falls of rather quickly. For a solid, one has peeks with a length scale of the order of the lattice constant.
+This implies that the stress tensor $\sigma_{\alpha\beta} = 0$ for all $\alpha\neq\beta$. Therefore, the stress tensor can be written as, by convention:
+\begin{align*}
+    \sigma_{\alpha\beta} &= -p\delta_{\alpha\beta},
+\end{align*}where $p$ is the pressure of the fluid. The equation of motion for a soft body, classified as a fluid is given by:
+\begin{align}
+    \rho\frac{dv_\mu}{dt} &= \partial_\beta\sigma_{\mu\beta},\label{eq: fluid equation of motion}
+\end{align}so if the fluid is at rest, $\frac{dv_\mu}{dt} = 0$, implies that $\nabla p = 0$, which is the equation of hydrostatics without any external forces. If one includes external forces, and using conventions, one gets the following expression:
+\begin{align}
+    -\nabla p + \rho\mathbf{g} &= 0.\label{eq: hydrostatics}
+\end{align}where $\mathbf{g}$ is the gravitational force, we can however construct a gravitational potential function which leads to the following expression:
+\begin{align*}
+    \nabla\left(p + \psi\right) &= 0,
+\end{align*}where $\psi$ is the aforementioned mentioned gravitational potential function.
+In the previous case we defined some velocity $v_\mu$, but what is actually that velocity? In fluids dynamics we have two interpretations of the velocity, namely the Eulerian and the Lagrangian velocity.
+We can say that there exist a velocity field $\vec{v}$ which describes the velocity at each point in space, and at a specific time $t$, this is the Eulerian velocity. 
+The Lagrangian velocity however, is the velocity of a fluid element, within some parcel of fluids, for a specific time $t$ along a path $\mathbf{r}(t)$.
+Thus, the Lagrangian velocity is given by:
+\begin{align*}
+    \mathbf{v}(t | \mathbf{r_0}, t_0) &=\frac{d}{dt}\mathbf{X}(t | \mathbf{r_0}, t_0).
+\end{align*}We can find the following PDE, when comparing the two velocities:
+\begin{align*}
+    \frac{d\mathbf{v}}{dt} &= \left(\partial_t + v_\beta\partial_\beta\right)v_\mu\\
+     &= D_tv_\mu,
+\end{align*}where $\mathbf{v}$ is the Lagrangian velocity and $v_\kappa$ is the Eulerian velocity, where the last term is the term which determines the flow: advection or convection.
+In eq \eqref{eq: fluid equation of motion}, one has the Lagrangian velocity as the derivative, and substituting the expression just found, one obtains:
+\begin{align}
+    \partial_t\dot{v}_\mu + v_\beta\partial_\beta v_\mu &= -\frac{\nabla p}{\rho} + \mathbf{g}.\label{eq: euler equation of fluids}
+\end{align}This equation is ignoring off-diagonal elements of the stress tensor, is non-linear and really not correct. It's a good estimate but not more than that.
+
+\vspace*{0.5cm}\noindent
+Bernoulli's equation is a very important equation in fluid dynamics, and is given by:
+\begin{align}
+    \vec{v}\cdot\nabla\left(\frac{p}{\rho} + \psi + \frac{v^2}{2}\right) &= 0,\label{eq: Bernoulli's equation}
+\end{align}where $\psi$ is the gravitational potential and $v^2$ is the square norm of the Eulerian velocity $v$.
+
+\subsection{Stream-lines}
+Stream-lines are only defined for steady flows, i.e. not turbulent flows. Suppose a velocity field, which is steady, then the stream-lines are defined to be tangential lines to the curvature.
+At the stream-lines, eq \eqref{eq: Bernoulli's equation} is constant, and thus the pressure is constant along the stream-lines. This is a consequence of the fact that the velocity is tangential to the stream-lines.
+This is a statement of conservation of energy in essence.
+
+\vspace*{0.5cm}\noindent
+Suppose a region of fluid, which has fluid flowing through it with some flux $\mathbf{J}$, then the net change in the fluids mass is given by:
+\begin{align*}
+    \Delta m &= \oint_{\partial V} \mathbf{J}\cdot d\mathbf{S},\\
+    \implies \partial_t \Delta m &= - \oint_{\partial V} \mathbf{J}\cdot d\mathbf{S}\\
+    \partial_t\int_V \rho dV &= -\oint_{\partial V} \mathbf{J}\cdot d\mathbf{S}\\
+    \implies& \int_V dV\left(\partial \rho + \dive{J}\right) = 0.
+\end{align*}The flux $\mathbb{J}$ can be written as $\mathbf{J} = \rho\mathbf{v}$, and if the density is constant, then:
+\begin{align*}
+    \dive{v} &= 0.
+\end{align*}This is a statement of incompressability. If the divergence of the velocity is zero, then the fluid is incompressible.
+\subsection{Navier-Stokes}
+We have before seen, in the Euler equation of fluids, eq \eqref{eq: euler equation of fluids}, that the equation of motions does not depend on the off-diagonal elements of the stress tensor. However, what if the equation of motion does?
+\begin{align*}
+    \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} &= - \frac{\nabla p}{\rho} - \vec{\psi} + \text{Something }.
+\end{align*}How do one find then that Something? One uses the experimental fact that the flow at a surface is zero. This is easily visualized; imagine a river of which flows down. In the middle of the river, the current is strong whilst at the edges the flow is still.
+This itself is the statement we will investigate to find that Something. The stress tensor has to have the following form:
+\begin{align*}
+    \sigma_{\alpha\beta} &= \left(A_{\alpha\beta\nu\kappa}\right)\frac{\partial v_\mu}{dx_\mu},
+\end{align*}where $A_{\alpha\beta\nu\kappa}$ is a forth rank tensor, of which contains the property of the fluid. How do we then find $A_{\alpha\beta\nu\kappa}$? One has to go back slightly to the continuity equation, and instead of having $\rho$ to be the mass density, it will signify the momentum density.
+This leads to the following interpretation: $\pi_\alpha = \rho v_\alpha$, $J_\alpha = \left(\pi_\alpha\right) v_\beta$, which gives:
+\begin{align*}
+    \partial_t\left(\rho v_\alpha\right) + \text{div}\left(\rho v_\alpha v_\beta\right) = \partial_\beta \sigma_{\alpha\beta},
+\end{align*}under some external force, where $\rho v_\alpha$ is a particle momentum and $v_\beta$ is the flow of the fluid.
+This stress tensor $\sigma_{\alpha\beta}$ can then further be written as:
+\begin{align*}
+    \sigma_{\alpha\beta} &= -p\delta_{\alpha\beta} - \rho\psi + \sigma_{\alpha\beta}^v,
+\end{align*}where the last term is something that depends on the fluid in motion. The theory constructed here must be Galilean invariant; thus, $\sigma_{\alpha\beta}^v$ depend on some velocity field $\vec{v}$ but not the fluids-velocity.
+Therefore, the stress tensor $\sigma_{\alpha\beta}^v$ but me a forth rank isotropic tensor of the following form:
+\begin{align*}
+    \sigma_{\alpha\beta}^v &= \eta_{\alpha\beta\mu\nu}s_{\mu\nu},
+\end{align*}and it's the strain and not the rotation since the rotation can't give rise to a force. There is a difference now between the fluids dynamical strain tensor versus the elastic strain tensor, namely the following:
+\begin{align*}
+    \sigma_{\alpha\beta}^v &= \eta_{\alpha\beta\mu\nu}s_{\mu\nu}\\
+    \sigma_{\alpha\beta}^v &= \mu\left(s_{\alpha\beta} - \frac{2}{3}\delta_{\alpha\beta}s_{\mu\mu}\right) + \mathcal{J}\delta_{\alpha\beta}s_{\mu\mu},
+\end{align*}where $\mu$ is the shear viscosity and $\mathcal{J}$ is the bulk viscosity. For incompressible fluid $s_{\kappa\kappa}$ is zero, and thus one has:
+\begin{align*}
+    \sigma_{\alpha\beta}^v &= \mu\left(s_{\alpha\beta}\right)\\
+    &=\mu\left(\partial_\alpha v_\beta + \partial_\beta v_\alpha\right),\\
+    \partial_\beta\left(\sigma_{\alpha\beta}^v\right) &= \nabla^2\vec{v}.
+\end{align*}The equation of motion is then given by, for an incompressible fluid:
+\begin{align}
+    \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} - \partial_\beta\sigma_{\alpha\beta}^v &= -\frac{\nabla p}{\rho} - \nabla\psi.\nonumber\\
+    \implies \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} &= -\frac{\nabla p}{\rho} - \nabla\psi + \mu\nabla^2\vec{v}.\label{eq: Navier-Stokes incompressible}
+\end{align}
+
 
 
 \end{document}
