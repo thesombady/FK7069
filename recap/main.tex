@@ -503,6 +503,83 @@ When dealing with shells, the strain has another contribution, namely the curvat
 \begin{align*}
     s_{\alpha\beta} &= \frac{1}{2}\left(\partial_\alpha u_\beta + \partial_\beta u_\alpha\right) + \frac{\partial w}{\partial x_\alpha}\frac{\partial w}{\partial x_\beta} + \delta_{\alpha\beta}\left(\frac{w}{R}\right),
 \end{align*}here $R$ is the radii of curvature, and in the case of a flat plane, $R \to\infty$ and thus the last term vanishes.
+The quantity $\f_{\text{Stretch}}/\f_{\text{Bend}}$ is then the so called Föpl-VonKarman number, FVK for short, which typically is of the order $R^2/h^2$, where $h$ is the thickness of the plate.
+\subsection{Polymer}
+A polymer is a long chain of monomers, which are connected by chemical bonds. The monomers are typically small molecules, however, they can also be larger molecules.
+\begin{figure}[H]
+   \centering
+   \begin{tikzpicture}
+        \draw (0,0) rectangle (1,1);
+        \draw[dashed] (1, 0.5) -- (2, 0.5);
+        \draw (2,0) rectangle (3,1);
+        \draw[dashed] (3, 0.5) -- (4, 0.5);
+        \draw (4,0) rectangle (5,1);
+   \end{tikzpicture} 
+   \caption{A polymer example}
+   \label{fig: polymer example}
+\end{figure}\noindent
+The polymer is therefore, typically, a long chain of monomers, which can be oriented differently. A polymer can therefore have a curvature.
+This curvature, however, is a result of bending the chain, and this bending is costly; the cost lies in changing the bond-angle. The bond-angle is the angle between the monomers.
+Typically, the bond-angle is determined by the type of chemical bond, and thus changing the bond-angle increases the free energy of the system.
+
+\vspace*{0.5cm}\noindent
+The bending energy is however typically small compared to that of the thermal energy of the polymer, which is in order of $k_bT$.
+There exists some typical questions regarding polymers a physicist can ask: What is the average length of the polymer, What is the force required to pull the polymer a distance $d$, ... .
+If one has a polymer, fastened at one end, which is straight but being deformed by some bending, then the free energy is given by:
+\begin{align*}
+    \f^{\text{bend}} &= \frac{B}{2}\int_0^L \frac{1}{R^2} ds\\
+    &=\frac{BL}{2R^2},
+\end{align*}if the polymer is bent in only a small bit, one can substitute $L = R\theta$, where $\theta$ is the angle of the bend, which leads to the following:
+\begin{align*}
+    \f^{\text{bend}} &=\frac{BL\theta^2}{2L^2}\\
+    &= \frac{B\theta^2}{2L}\sim k_bT.
+\end{align*}From this, one finds that there exists a characteristic length scale of the polymer: $L\sim \frac{B}{k_bT}$. One calls this length scale the persistence length $\mathcal{S}_p = \frac{B}{k_bT}$.
+Now suppose a polymer which has a length $L$, which is much greater than the persistence length $\mathcal{S}_p$. The polymer is then in a random coil configuration; and can be described by a random walk; if the length of the polymer is much less than the persistence length, then the polymer is in a rod-like configuration, i.e. mostly straight.
+
+\vspace*{0.5cm}\noindent
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = left,
+            xlabel = $x$,
+            ylabel = $y$,
+        ]
+           \addplot[domain = 0:3, samples = 50, mark = -, mark options = {solid}] {2*x + 0.1*x^2 + 20 * ln(x) + 0.8 * x^3} node[below, pos = 0.7] {$\hat{t}$};
+
+        \end{axis}
+    \end{tikzpicture}
+    \label{fig: polymer worm model}
+    \caption{Path integral from polymer worm model}
+\end{figure}\noindent
+The bending energy is thus defined by the following:
+\begin{align*}
+    \f^{\text{bend}} &= \frac{B}{2}\int_0^L \left(\frac{1}{R}\right)^2ds\\
+    &= \frac{B}{2}\int_0^L \left(\frac{d\hat{t}}{ds}\right)^2ds,\\
+\end{align*}where $\hat{t}(s)$ then traces the entire path of the polymer. We like to draw the concepts to that of statistical physics, but for that we need to find the partition function $Z$, which is not an easy task.
+The partition function is a functional of $\hat{t}(s)$, which thus implies:
+\begin{align*}
+    Z[\hat{t}] &= \sum_{\hat{t}_i(s)} \exp\left(-\frac{1}{k_bT}\cdot\left[\text{energy of }\hat{t}(s)\right]\right).
+\end{align*}This is then expanded by discretizing the path $\hat{t}(s)$ with $N$ points, which yields:
+\begin{align*}
+    Z[\hat{t}] &=\int \Delta\hat{t}(s)\exp\left[-\frac{\mathcal{S}_p}{2}\int_0^L\left(\frac{d\hat{t}}{ds}\right)^2ds\right].
+\end{align*}We really want to obtain the partition function, since $\f = k_bT\ln(Z)$, however this is still quite a difficult task.
+If we restrict ourselves to one dimension, and state that there is no cost in bending; then we can safely assume that the polymer will exhibit random walk properties.
+If the polymer is constructed of monomers of length $l$, then the average square length of the random walk of $N$ steps is given by: $\langle l^2\rangle = N \cdot a^2$.
+
+\vspace*{0.5cm}\noindent
+Helmholtz free energy is then given by:
+\begin{align*}
+    \f &= U - TS = -TS,
+\end{align*}since there is no internal energy in the system, the entry however, can be rewritten as $S = k_b\cdot \ln(W)$ where $W$ is the number of microstates/all possible configurations.
+
+
+
+
+
+
+
+
 
 
 
