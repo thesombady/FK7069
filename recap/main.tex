@@ -572,19 +572,27 @@ Helmholtz free energy is then given by:
 \begin{align*}
     \f &= U - TS = -TS,
 \end{align*}since there is no internal energy in the system, the entry however, can be rewritten as $S = k_b\cdot \ln(W)$ where $W$ is the number of microstates/all possible configurations.
-
-
-
-
-
-
-
-
-
-
-
+One question still remains, what is the average length $l$ of the random walk? We can say that after $N$ steps, that we have stepped $M$ steps in one direction, and $N-M$ steps in the other direction.
+If $M$ is greater than $N-M$, we can say that the average length is given by: $\langle l\rangle = M\cdot a$, where $a$ is the length of the monomer. Using this, we can find the number of microstates:
+\begin{align*}
+    W &= \binom{N}{M} = \frac{N!}{M!(N-M)!},\\
+    -k_bT\ln(W) &= \left[M\ln(M) + (N-M)\ln(N-M)\right]k_bT,\\
+    \implies \f &= -k_bT\ln(W) + \underbrace{F\cdot l}_{\Delta E_{\text{ext}}}\\
+    &=-k_bT\ln(W) + F\cdot a(2M-N).
+\end{align*}If we differentiate the free energy with respect to $M$, we get the result of Hookean spring, which is the force required to pull the polymer a distance $l$.
+\begin{align*}
+    0&= \frac{\partial \f}{\partial M}\\
+    &= -k_bT\frac{\partial}{\partial M}\ln(W) + 2Fa,\\
+    \implies F&= -\left(\frac{k_bT}{aL}\right)l.
+\end{align*}The spring constant is in this case however only dependent on the thermal fluctuations and is therefore not a constant nor is it a material property.
 
 \section{Fluid mechanics}\label{sec: Fluid mechanics}
+What is even a fluid? This question is still up for debate, however, we can say that a fluid is a soft body that cannot maintain elastic sheer stress at rest, e.g. if you push on a fluid, it flows instead of deforms.
+Why is it a question for debate? The above definition is a mechanical definition, but what about structural definitions? One could look at the structural neighbors of a molecule in a fluid via the so-called radial distribution function:
+\begin{align*}
+    g(r) &= \frac{1}{4\pi r^2}\frac{d n}{dr},
+\end{align*}where $n$ is the number of neighbors. Mostly, in a fluid, the radial distribution function has peeks at a given distance close to the origin, but falls of rather quickly. For a solid, one has peeks with a length scale of the order of the lattice constant.
+
 
 \end{document}
  
