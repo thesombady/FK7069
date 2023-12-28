@@ -86,8 +86,10 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
 \section{Introduction}
 In this compendium I'll summarize the exercise made in the course, with the teachers solutions and dive into a recap of the content of the course.
+The course is itself divided into two sections: Soft matter, and Fluid mechanics. Soft matter covers topics such as strain, stress, elasticity and so on; fluid mechanics covers the part of Navier-Stokes, Stokes-equation as well as flow types.
 
 
 \section{Introductory math}
@@ -702,7 +704,7 @@ The problem is linear and time-independent; time reversibility is possible. This
 Where can one then see this problem in real life? In fluid flow in narrow channels, e.g. blood in flow in the arteries, sedimenting particles in a fluid, and microorganisms swimming in a fluid.
 One often calls this regime "Land of no Inertia", since inertia plays 'no' role in the flow of these types.
 
-\vspace*{.5cm}\noindent
+\subsection{Lubrication approximation}\label{sec: Lubrication approximation}
 We will now solve the Stokes problem in a narrow channel, using the so-called Lubrication approximation.
 \begin{figure}[H]
     \centering
@@ -749,7 +751,7 @@ How does one then solve the sedimenting bodies problem? If one looks at eq \eqre
 \end{align*}where then we further simply the problem by stating that we can say that the velocity field $\vec{v}$ can be written as:
 \begin{align*}
     \vec{v} &= -\hat{x}\partial_y \psi + \hat{y}\partial_x\psi,
-\end{align*}which yields the so-called Bi-laplace equation:
+\end{align*}which yields the so-called Bi-laplace equation (also known as the Biharmonic equation):
 \begin{align*}
     \nabla^4\psi &= 0,
 \end{align*}with some boundary conditions given on $\nabla\psi$. However, the same problem can be solved by abusing symmetry.
@@ -785,14 +787,98 @@ Thus, the change in pressure is given by:
 \end{align*}Thus, the pressure is given by:
 \begin{align*}
     p(x) &= p_{in} - 2\mu\int_0^x A(x')dx'\\
-    &= p_{in} - \frac{3\mu}{2}\Phi\int_0^x\frac{1}{h(x')}dx'.
+    &= p_{in} - \frac{3\mu}{2}\Phi\int_0^x\frac{1}{h(x')^3}dx'.
 \end{align*}Know the pressure difference between the inlet and outlet lets one find $\Phi$:
 \begin{align*}
-    p_{out} - p_{in} &= - \frac{3\mu}{2}\phi\int_0^L\frac{1}{h(x')}dx',\\
+    p_{out} - p_{in} &= - \frac{3\mu}{2}\phi\int_0^L\frac{1}{h(x')^3}dx',\\
     \implies A(x) &= \frac{3\mu\Phi}{4}.
 \end{align*}Now, the problem is solved since $U(y) = A(x)(h^2 - y^2)$.
+\subsection{Boundary layers}
+Navier-Stokes equation, eq \eqref{eq: Navier-Stokes incompressible}, in the absence of a gravitational potential, can be written as:
+\begin{align*}
+    \partial_t\vec{v} + \left(\vec{v}\cdot\nabla\right)\vec{v} &= \nu\nabla^2\vec{v} -\frac{\nabla p}{\rho}.
+\end{align*}Close to the boundary of a surface the velocity is zero, and increases with height from the surface. This is show in the figure below, which shows an increasing velocity with height.
 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (0, 0) arc (120: 70: 8);
+        \draw[<->] (0.5, -.5) -- (6, .5) node[below, pos = 0.5] {$l$};
+        \draw[->] (2.8, 0.985) -- (8, 1.7) node[below] {$x$};
+        \draw[->] (2.8, 0.985) -- (2.4, 3) node[left] {$y$};
+        \draw (2.8, 0.985) arc (280: 360: 2);
+        \draw (2.8 + 1.65, 0.985 + 1.95) -- (2.8 + 1.45, 0.985 + 3);
+        \draw[<->] (2.8 + 1.65, 0.985 + 1.95) -- (2.8 + 2, 0.985 + .25) node[right, pos = 0.5] {$\delta$};
 
+        \draw[dashed] (2.5, 0.985 + 2) -- (5, 1.7 + 1.7) node[right] {$\vec{v} = \binom{U}{V}$};
+    \end{tikzpicture}
+    \caption{Boundary layer of flow}
+    \label{fig: Boundary layer}
+\end{figure}\noindent
+We will now focus on some boundary layer theory, i.e. the height $\delta$ of which the boundary layer exists. Suppose a laminar flow, the Navier-Stokes equation becomes:
+\begin{align*}
+    \left(\vec{v}\cdot\nabla\right)\vec{v} &= \nu\nabla^2\vec{v} - \frac{\nabla p}{\rho},
+\end{align*}then it can be show that there is a jump in velocity from the surface to the boundary height $\delta$. One says that the velocity $\vec{v}$ is equal to our decomposition $U$ on the stream-lines, and outside the gradients, and viscosity are small enough.
+Using a change of variable, $\vec{v}_x = u_0v_1$ and $\vec{v}_y = u_0v_2$, where $u_0$ is some characteristic velocity, then the equation for the velocity for laminar flow is given by:
+\begin{align}
+    \left(v_1\partial_1 + v_2\partial_2\right)v_1 &= \partial_2^2v_1 + \partial_1^2v_1.\label{eq: laminar flow velocity}
+\end{align}The height $\delta$ is proportional to $\delta \sim \frac{L\nu}{U_0}$. As a consequence, when Reynolds number increases, the boundary layer separates and the flow becomes turbulent, and the solution becomes unstable.
+
+\vspace*{0.5cm}\noindent
+We have thus two methods of solving the problems that occurs in our course, in the part fluid mechanics; Lubrication approximation \ref{sec: Lubrication approximation} and exploiting symmetry.
+We use this approximation when Reynolds number goes towards zero, since we're left with Stokes-equation \eqref{eq: Stokes problem} which is time-independent and linear.
+This means that there exists uniqueness of solutions and superposition, which is not the case of Navier-Stokes equation \eqref{eq: Navier-Stokes incompressible}.
+
+\vspace*{0.5cm}\noindent
+Two question remains. What is viscosity, and what about surface tension? One way to determine what viscosity is to look at the molecular picture. The pressure is given by something called the kinetic theory of gases, and from there one obtains the stress by stating $\sigma_{\alpha\beta}dA = $ Number of molecules traversing times their typical momentum divided by the unit time.
+Surface tension is a subject one should stay far away from. However, we in this course are not permitted to do so. Instead, we dive head first.
+
+\vspace*{0.5cm}\noindent
+Suppose a surface, the molecules at the surface are surrounded by half as many molecules as the molecules inside the bulk. This results in a net force on the surface molecules compared to that of the bulk molecules.
+The surface energy $\gamma$ is then proportional to the energy difference per unit area:
+\begin{align*}
+    \gamma\sim \frac{E}{2a^2},
+\end{align*}where $E$ is the typical energy of the interaction of the molecules, and $a$ is the typical distance between the molecules.
+This is a somewhat crude approximation, but the proportionality is rather a good estimate. However, nature always tries to minimize energy, and thus ripples are attached to each other. This is the reason why bubbles are spherical.
+How does on then solve the problem of surface tension? Suppose a rod in a fluid, the fluid then cripples up onto the rod.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale = 1.2]
+        \draw[->] (0,-2) -- (0, 2) node[right] {$x$};
+        \draw[dashed] (0.5, -1.5) -- (0.5, 1.5);
+
+        \draw[color = blue] (-3, 0) -- (-2, 0);
+        \draw[color = blue] (-2,0) arc (270:360:2);
+
+        \draw (-1.25, 0) -- (0, 2 - 1);
+        \draw (-0.626, 0.5) -- (0.5, -1) node [left, pos = 0.5] {$R_1$};
+        \draw (0.5, -.5) arc (60:180:0.185) node[above, pos = 0.5] {$\theta$};
+
+        \draw[->] (-1, 1) -- (-.626, 0.5) node [right, pos = 0.1] {$R_2$};
+        \draw (0, .5) arc (270:150:0.22) node[right, pos = 0.1] {$\phi$};
+
+        \draw[dashed, color = red] (-.626, 0.5) -- (0, 0.5) node[right, pos = 1.5] {$h(x)$};
+
+        \draw[dashed] (-3, 0) -- (0, 0) node[above, pos = .1] {Fluid-level};
+    \end{tikzpicture}
+    \caption{Surface tension on a rod}
+    \label{fig: Surface tension on a rod}
+\end{figure}\noindent
+We ignore gravity, and recognize that the angle $\phi = \frac{\pi}{2} -\theta$. The flow is steady, and thus we have a constant pressure within in the fluid.
+Therefore, we have the following:
+\begin{align*}
+    \left(\frac{1}{R_1} + \frac{1}{R_2}\right) &= \frac{\nabla p}{\rho} = 0,
+\end{align*}but the question is now how do we determine $R_1$ and $R_2$ since it seems like they are the things we need to solve for?
+We say that $\dot{h}(x)=\frac{dh}{dx}$ and $\ddot{h} = \frac{d^2h}{dx^2}$, and from that we define the two radii of curvature:
+\begin{align*}
+    \frac{1}{R_2} &= -\frac{\ddot{h}}{(1 + \dot{h}^2)^\frac{3}{2}},\\
+    \frac{1}{R_1} &= \frac{\cos(\theta)}{h}\\
+    &=\frac{1}{h\cdot\left(1+\dot{h}^2\right)^\frac{1}{2}},\\
+    \implies \frac{1}{R_1} + \frac{1}{R_2} &=\frac{1}{h\dot{h}}\frac{d}{dx}\left[\frac{h}{\left(1 + \dot{h}^2\right)^\frac{1}{2}}\right].
+\end{align*}But from the above statement that the sum of the inverse radii is zero, we obtain the following solution:
+\begin{align*}
+    h(x) &=b\cosh\left(\frac{x}{b}\right).
+\end{align*}The entire problem is solved via geometry, and the solution is called the catenary. The catenary is the solution to the problem of surface tension on a rod.
 
 
 
