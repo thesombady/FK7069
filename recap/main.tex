@@ -175,6 +175,11 @@ There exist a few common PDEs that are used in physics, the most common ones are
     \psi(\mathbf{r}) &= \frac{f}{\abs{\mathbf{r}}^2}.
 \end{align*}This is a result we will use extensively, since the majority of PDEs can't be solved, one will try to rewrite it into something that is familiar.
 
+\vspace*{0.5cm}\noindent
+We also have the so called pair-distribution function $g(r)$ which is defined per below:
+\begin{align*}
+    g(r) = \frac{1}{4\pi r^2}\frac{dn}{dr},
+\end{align*}where $n$ is the number of particles in a volume $V$, and thus $dn$ is the number change of particles depending on how the volume changes.
 \section{Soft Matter}\label{sec: Soft matter}
 Suppose that one has an object that is 'soft', this means that when an external force is applied, that the object will deform.
 \begin{figure}[H]
@@ -274,7 +279,7 @@ Suppose a deformation field $\mathbf{u}(x,y) = a\left(0\hat{x} + x\hat{y}\right)
 \end{align*} This implies that the precentral change in volume is equal to the divergence of the deformation field.
 
 \vspace*{0.5cm}\noindent
-I've we then defined stress as being the symmetric part of the Jacobian of the deformation field, but what is then stress? 
+We've defined strain as being the symmetric part of the Jacobian of the deformation field, but what is then stress? 
 Stress is also a second rank tensor, and is defined as the force per unit area. We start by saying that there are two 'solids' in contact with each other.
 By Newtons third law, they exert a force on each other equal in size but opposite in direction. If we then say that the differential of the force, in one component is given by a linear relationship, we obtain the stress tensor:
 \begin{align*}
